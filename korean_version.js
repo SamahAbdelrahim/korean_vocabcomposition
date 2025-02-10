@@ -1,8 +1,4 @@
-// const jsPsych = initJsPsych({
-//     on_finish: function () {
-//         jsPsych.data.displayData('csv');
-//       }
-//   });
+
 
 var jsPsych = initJsPsych({
     use_webaudio: false,
@@ -20,19 +16,67 @@ var jsPsych = initJsPsych({
 
          });
 
-         Promise.all(all_trials.map(trial => logExpData(trial)))
-         .then(() => {
-             console.log("All data logged, redirecting...");
-             window.location.href = "https://app.prolific.com/submissions/complete?cc=C183XD81";
-         })
-         .catch(error => {
-             console.error("Failed to log all data", error);
-             alert("There was an error saving your data. Please contact the study administrator.");
-         });
+        Promise.all(all_trials.map(trial => logExpData(trial)))
+            .then(() => {
+                console.log("All data logged, redirecting...");
+                //window.location.href = "https://app.prolific.com/submissions/complete?cc=C1O4GW39";
+            })
+            .catch(error => {
+                console.error("Failed to log all data", error);
+                alert("There was an error saving your data. Please contact the study administrator.");
+            });
     }
 }); 
 
+
 let timeline = [];
+// var subject_id = jsPsych.randomization.randomID(15);
+
+// jsPsych.data.addProperties({
+//     subject: subject_id,
+//   });
+
+
+var words_array = [];
+let words = [{"theword":"책"},{"theword":"눈"},{"theword":"발"},{"theword":"개"},{"theword":"신/신발"},
+    {"theword":"양말"},{"theword":"딸기"},{"theword":"바나나"},{"theword":"귀"},{"theword":"손"},
+    {"theword":"입"},{"theword":"꽃"},{"theword":"모자"},{"theword":"바지"},{"theword":"고기"},
+    {"theword":"귤"},{"theword":"사과"},{"theword":"사탕"},{"theword":"머리"},{"theword":"배"},
+    {"theword":"풍선"},{"theword":"고양이"},{"theword":"곰"},{"theword":"돼지"},{"theword":"새"},
+    {"theword":"오리"},{"theword":"토끼"},{"theword":"가방"},{"theword":"기저귀"},{"theword":"문"},
+    {"theword":"이불"},{"theword":"김"},{"theword":"아이스크림"},{"theword":"주스"},{"theword":"포도"},{"theword":"배꼽"},{"theword":"약"},{"theword":"컵"},{"theword":"기차"},{"theword":"버스"},
+    {"theword":"비행기"},{"theword":"인형"},{"theword":"나비"},{"theword":"말"},{"theword":"물고기"},
+    {"theword":"사자"},{"theword":"소"},{"theword":"코끼리"},{"theword":"호랑이"},{"theword":"옷/꼬까"},{"theword":"베개"},{"theword":"의자"},{"theword":"치즈"},{"theword":"다리"},{"theword":"이/이빨"},{"theword":"전화"},{"theword":"칫솔"},{"theword":"나무"},{"theword":"배"},{"theword":"자전거"},{"theword":"기린"},{"theword":"악어"},{"theword":"방"},{"theword":"텔레비전"},{"theword":"계란/달걀"},{"theword":"김치"},{"theword":"수박"},{"theword":"요구르트"},{"theword":"얼굴"},
+    {"theword":"엉덩이"},{"theword":"가위"},{"theword":"비누"},{"theword":"수건"},{"theword":"숟가락"},{"theword":"시계"},{"theword":"안경"},{"theword":"우산"},{"theword":"포크"},{"theword":"휴지"},{"theword":"비"},{"theword":"유모차"},{"theword":"개구리"},{"theword":"닭"},{"theword":"하마"},{"theword":"팬티"},{"theword":"냉장고"},{"theword":"침대"},{"theword":"떡"},{"theword":"콩"},
+    {"theword":"목"},{"theword":"팔"},{"theword":"돈"},{"theword":"빗"},{"theword":"치약"},
+    {"theword":"그네"},{"theword":"눈"},{"theword":"미끄럼틀"},{"theword":"별"},{"theword":"오토바이"},{"theword":"택시"},{"theword":"블록"},{"theword":"연필"},{"theword":"장난감"},{"theword":"종이"},{"theword":"크레용/크레파스"},{"theword":"개미"},{"theword":"거북이"},{"theword":"뱀"},
+    {"theword":"병아리"},{"theword":"양"},{"theword":"원숭이"},{"theword":"단추"},{"theword":"장갑"},
+    {"theword":"계단"},{"theword":"피아노"},{"theword":"화장실"},{"theword":"고구마"},
+    {"theword":"국"},{"theword":"껌"},{"theword":"당근"},{"theword":"오렌지"},{"theword":"초콜렛"},
+    {"theword":"커피"},{"theword":"케이크"},{"theword":"토마토"},{"theword":"고추"},{"theword":"손가락"},{"theword":"쓰레기통/휴지통"},{"theword":"젓가락"},{"theword":"칼"},{"theword":"달"},
+    {"theword":"불"},{"theword":"해/햇빛"},{"theword":"불자동차/소방차"},{"theword":"공룡"},
+    {"theword":"쥐"},{"theword":"펭귄"},{"theword":"목걸이"},{"theword":"잠바"},{"theword":"주머니"},
+    {"theword":"창문"},{"theword":"감자"},{"theword":"과일"},{"theword":"라면"},{"theword":"옥수수"},
+    {"theword":"피자"},{"theword":"똥꼬"},{"theword":"머리카락"},{"theword":"그릇"},{"theword":"그림"},{"theword":"쓰레기"},{"theword":"열쇠"},{"theword":"청소기"},{"theword":"눈사람"},
+    {"theword":"시소"},{"theword":"하늘"},{"theword":"트럭"},{"theword":"선물"},{"theword":"풀"},
+    {"theword":"다람쥐"},{"theword":"벌레"},{"theword":"여우"},{"theword":"구두"},{"theword":"운동화"},{"theword":"목욕탕"},{"theword":"세탁기"},{"theword":"소파"},{"theword":"감"},{"theword":"국수"},{"theword":"무/무우"},{"theword":"생선"},{"theword":"얼음"},{"theword":"등"},{"theword":"무릎"},{"theword":"어깨"},{"theword":"피"},{"theword":"걸레"},{"theword":"지갑"},{"theword":"카메라"},{"theword":"돌"},{"theword":"바람"},{"theword":"헬리콥터"},{"theword":"로봇"},{"theword":"비누방울"},{"theword":"총"},{"theword":"벌"},{"theword":"비둘기"},{"theword":"사슴"},{"theword":"염소"},{"theword":"참새"},{"theword":"목도리"},{"theword":"치마"},{"theword":"부엌"},{"theword":"서랍"},{"theword":"밤"},{"theword":"쌀"},{"theword":"콜라"},{"theword":"호박"},{"theword":"발톱"},
+    {"theword":"입술"},{"theword":"접시"},{"theword":"구름"},{"theword":"모래"},{"theword":"동물"},
+    {"theword":"부엉이"},{"theword":"옷장"},{"theword":"닭고기"},{"theword":"땅콩"},{"theword":"배추"},{"theword":"복숭아"},{"theword":"햄버거"},{"theword":"몸"},{"theword":"턱"},{"theword":"옷걸이"},{"theword":"풀"},{"theword":"흙"},{"theword":"송아지"},{"theword":"허리"},{"theword":"혀"},
+    {"theword":"병"},{"theword":"상자"},{"theword":"길"},{"theword":"잠옷"},{"theword":"유리"},
+    {"theword":"사이다"},{"theword":"설탕"},{"theword":"소금"},{"theword":"뺨"},{"theword":"라디오"},
+    {"theword":"빗자루"},{"theword":"땅"},{"theword":"사다리"},{"theword":"음식"},{"theword":"망치"},
+    
+    {"theword":"썰매"},{"theword":"전자레인지"},{"theword":"도너츠"},{"theword":"메론"},
+    {"theword":"핫도그"},{"theword":"쟁반"},{"theword":"코트/외투"},{"theword":"허리띠"},
+    {"theword":"스파게티"},{"theword":"바위"},{"theword":"지붕"},{"theword":"호떡"},{"theword":"발목"},{"theword":"못"}]
+for (let i = 0; i < words.length; ++i) {
+    var word = words[i];
+    words_array.push(word);
+};
+
+var words1= words_array.slice(0,141);
+var words2 = words_array.slice(142,283);
+var words3 = words_array.slice(284,424);
 
 
 // Function to shuffle an array using Fisher-Yates algorithm
@@ -44,239 +88,445 @@ function shuffleArray(array) {
     return array;
 }
 
-let images1 = ["27-5-5-corrugatedsteel-A.png", "9-27-9-corrguatedsteel-A.png", "11-34-9-metal007-AB.png", "30-38-4-074-AB.png", "19-1024-4-031-AB.png", "10-3-8-corrugatedsteel-A.png", "25-4-5-031-AB.png", "28-2000-7-printedmaterial007-A.png", "4-68-9-printedmaterial007-A.png", "20-64-6-fabric05-AB.png", "18-1022-2-074-AB.png", "5-13-9-metal007-AB.png", "7-15-8-fabric031-AB.png", "8-25-8-fabric05-AB.png", "13-57-6-031-AB.png", "16-53-11-printedmaterial007-A.png", "15- 2021-10-corrugated steel-A.png", "17-224-12-metal007-AB.png", "23-69-16-metal007-AB.png", "29-17-7-metal007-AB.png", "1-1016-1-031-A.png", "26-276-3-fabric05-AB.png", "22-89-13-printedmaterial007-A.png", "3-1016-6-corrugatedsteel-A.png", "2-42-5-fabric05-AB.png", "24-32-3-074-AB.png", "14-59-9-fabric05-AB.png", "6-1017-5-074-AB.png", "21-82-9-corrugatedsteel-A.png", "12-87-7-metal007-AB.png"]
-// images1 = images1.map(name => name.replace(/\s+/g, "-").replace(/-+/g, "-"));
-let images2 = ["17-224-12-074-AB.png", "19-1024-4-fabric05-AB.png", "4-68-9-metal007-AB.png", "24-32-3-031-AB.png", "1-1016-1-fabric05-AB.png", "13-57-6-fabric05-AB.png", "23-69-16-074-AB.png", "7-15-8-fabric05-AB.png", "5-13-9-031-AB.png", "26-276-3-corrugatedsteel-A.png", "14-59-9-corrugatedsteel-A.png", "6-1017-5-031-AB.png", "20-64-6-corrugatedsteel-A.png", "25-4-5-fabric05-AB.png", "11-34-9-074-AB.png", "8-25-8-corrugatedsteel-A.png", "21-82-9-printedmaterial007-A.png", "12-87-7-031-AB.png", "22-89-13-metal007-AB.png", "27-5-5-printedmaterial007-A.png", "2-42-5-corrugatedsteel-A.png", "16-53-11-metal007-AB.png", "10-3-8-metal007-AB.png", "29-17-7-074-AB.png", "3-1016-6-printedmaterial007-A.png", "9-27-9-printedmaterial007-A.png", "18-1022-2-031-AB.png", "28-2000-7-metal007-AB.png", "30-38-4-031-AB.png", "15- 2021-10-printedmaterial 007- AB.png"]
-let images3 = ["11-34-9-031-AB.png", "9-27-9-007-AB.png", "12-87-7-fabric05-AB.png", "20-64-6-printedmaterial007-A.png", "1-1016-1-corrugated steel-AB.png", "5-13-9-074-AB.png", "6-1017-5-fabric05-AB.png", "29-17-7-031-AB.png", "22-89-13-074-AB.png", "17-224-12-031-AB.png", "13-57-6-corrugatedsteel-A.png", "27-5-5-metal007-AB.png", "16-53-11-074-AB.png", "19-1024-4-corrugatedsteel-A.png", "25-4-5-corrguatedsteel-A.png", "24-32-3-fabric05-AB.png", "14-59-9-printedmaterial007-A.png", "7-15-8-corrugatedsteel-A.png", "2-42-5-printedmaterial007-A.png", "4-68-9-031-AB.png", "3-1016-6-printedmaterial007-AB.png", "10-3-8-074-AB.png", "8-25-8-printedmaterial007-A.png", "26-276-3-printedmaterial007-A.png", "28-2000-7-074-AB.png", "18-1022-2-fabric05-AB.png", "23-69-16-031-AB.png", "15- 2021-10-007- A.png", "30-38-4-fabric05-AB.png", "21-82-9-metal007-AB.png"]
-let images4 = ["16-53-11-031-AB.png", "1-1016-1-paintedmetal007-AB.png", "15- 2021-10-074- A.png", "28-2000-7-031-AB.png", "14-59-9-007-AB.png", "21-82-9-031-AB.png", "2-42-5-metal007-AB.png", "3-1016-6-074-AB.png", "6-1017-5-corrugatedsteel-A.png", "8-25-8-007-AB.png", "5-13-9-fabric05-AB.png", "26-276-3-metal007-AB.png", "27-5-5-074-AB.png", "10-3-8-031-AB.png", "12-87-7-corrugatedsteel-A.png", "4-68-9-074-AB.png", "30-38-4-corrugatedsteel-A.png", "18-1022-2-corrugatedsteel-A.png", "20-64-6-metal007-AB.png", "29-17-7-fabric05-AB.png", "7-15-8-printedmaterial007-A.png", "11-34-9-fabric05-AB.png", "19-1024-4-printedmaterial007-A.png", "17-224-12-fabric05-AB.png", "25-4-5-printedmaterial007-A.png", "24-32-3-corrugatedsteel-A.png", "22-89-13-031-AB.png", "23-69-16-fabric05-AB.png", "9-27-9-074-AB.png", "13-57-6-printedmaterial007-A.png"]
-let images5 = ["5-13-9-corrguated steel-A.png", "17-224-12-corrugatedsteel-A.png", "29-17-7-corrugatedsteel-A.png", "12-87-7-printedmaterial007-A.png", "26-276-3-074-AB.png", "18-1022-2-printedmaterial007-A.png", "14-59-9-074-AB.png", "21-82-9-031-AB.png", "30-38-4-printedmaterial-A.png", "3-1016-6-031-AB.png", "9-27-9-031-AB.png", "15- 2021-10-031- AB.png", "1-1016-1-metal007-AB.png", "7-15-8-metal007-AB.png", "11-34-9-corrugatedsteel-A.png", "19-1024-4-metal007-AB.png", "22-89-13-fabric05-AB.png", "23-69-16-corrugatedsteel-A.png", "2-42-5-074-AB.png", "28-2000-7-fabric05-AB.png", "25-4-5-metal007-AB.png", "13-57-6-007-AB.png", "20-64-6-074-AB.png", "10-3-8-fabric05-AB.png", "8-25-8-074-AB.png", "16-53-11-fabric05-AB.png", "6-1017-5-printedmaterial007-A.png", "4-68-9-fabric05-AB.png", "24-32-3-printedmaterial007-A.png", "27-5-5-031-AB.png"]
-let images6 = ["9-27-9-fabric05-AB.png", "15- 2021-10-05- AB.png", "4-68-9-corrugatedsteel-A.png", "28-2000-7-corrugatedsteel-A.png", "3-1016-6-fabric05-AB.png", "20-64-6-031-AB.png", "26-276-3-031-AB.png", "8-25-8-031-AB.png", "16-53-11-corrugatedsteel-A.png", "5-13-9-printed material 007-A.png", "18-1022-2-metal007-AB.png", "11-34-9-printedmaterial007-A.png", "14-59-9-031-AB.png", "7-15-8-074-A.png", "22-89-13-corrugatedsteel-A.png", "29-17-7-printedmaterial007-A.png", "6-1017-5-metal007-AB.png", "10-3-8-printedmaterial007-A.png", "19-1024-4-074-AB.png", "13-57-6-074-AB.png", "2-42-5-031-AB.png", "24-32-3-metal007-AB.png", "30-38-4-metal007-AB.png", "25-4-5-074-AB.png", "23-69-16-printedmaterial007-A.png", "21-82-9-fabric05-AB.png", "17-224-12-printedmaterial007-A.png", "27-5-5-fabric05-AB.png", "1-1016-1-074-AB.png", "12-87-7-007-AB.png"]
-// Keeping this template in case code below doesn't work
-// var imagesarray1 = [];
-// for (let i = 0; i < images1.length; ++i) {
-//     var img = 'list1/' +images1[i];
-//     imagesarray1.push({ stimulus: img });
-// };
+var arrayof_arrays = [words1, words2, words3]; 
+//console.log("length");
+//console.log(arrayof_arrays);
 
-// Function to create image arrays with paths
-function createImageArray(images, folder) {
-    return images.map(img => ({ stimulus: `${folder}/${img}` }));
-}
-
-// Create arrays for each material group
-let imagesarray1 = createImageArray(images1, 'list1');
-let imagesarray2 = createImageArray(images2, 'list2');
-let imagesarray3 = createImageArray(images3, 'list3');
-let imagesarray4 = createImageArray(images4, 'list4');
-let imagesarray5 = createImageArray(images5, 'list5');
-let imagesarray6 = createImageArray(images6, 'list6');
-
-
-// Combine all arrays into a single array of arrays
-var arrayof_arrays = [imagesarray1,  imagesarray2, imagesarray3, imagesarray4, imagesarray5, imagesarray6]; 
-
-// Randomly select one array
 var chosenarrayindex = Math.floor(Math.random() * arrayof_arrays.length);
 var chosenarray = arrayof_arrays[chosenarrayindex];
 
-// Shuffle the chosen array
-//chosenarray = shuffleArray(chosenarray);
+
+// Shuffle the words_array to randomize the order
+shuffleArray(chosenarray);
+// Select the first 100 rows
+var selectedWords = chosenarray.slice(0, 2);
 
 
 var trial1 = {
     type: jsPsychInstructions,
     pages: [
         '<div style="text-align: center; margin: 50px;"><img src="stanford.png"></div>' +
-        '<div style="text-align: center; margin: 0 auto; max-width: 600px; font-size: 18px; line-height: 1.5; color: #333;">' +
-        '<p>By answering the following questions, you are participating in a study being performed by cognitive scientists in the Stanford Department of Psychology.</p>' +
-        '<p>If you have questions about this research, please contact us at <a href="mailto:languagecoglab@gmail.com" style="color: #007bff; text-decoration: none;">languagecoglab@gmail.com</a>.</p>' +
-        '<p>You must be at least 18 years old to participate. Your participation in this research is voluntary.</p>' +
-        '<p>You may decline to answer any or all of the following questions. You may decline further participation, at any time, without adverse consequences.</p>' +
-        '<p>Your anonymity is assured.</p>' +
-        '<p><strong>Click "Next" to begin.</strong></p>' +
+        '<div style="text-align: center; margin: 0 auto; max-width: 600px; font-size: 18px;">' +
+        '<p>다음 질문들을 답변함으로써, 귀하는 스탠퍼드 대학교 심리학과의 인지과학자들이 수행하는 연구에 참여하게 됩니다. 이 연구에 대한 질문이 있으시면 <a href="mailto:languagecoglab@gmail.com">languagecoglab@gmail.com</a> 으로 문의해 주시길 바랍니다. </p>' +
+        '<p>연구에 참여하기 위해 만 18세 이상이어야 합니다.</p>' +
+        '<p>이 연구는 자발적으로 참여 의사를 밝히신 분에 한하여 수행됩니다.</p>' +
+        '<p>다음 질문들의 일부 또는 전부 답변하지 않아도 됩니다. 또한, 참여를 거부하거나 중단을 결정하더라도 이로 인한 불이익이나 혜택상실은 없을 것입니다.</p>' +
+        '<p>귀하의 익명성이 보장됩니다.</p>' +
+        '<p>계속 진행하려면 “다음”을 눌러주세요.</p>' +
         '</div>'
     ],
     show_clickable_nav: true,
-    button_label: 'Next',
-    button_html: '<button class="jspsych-btn" style="font-size: 20px; padding: 12px 24px; background-color: #8C1515; color: white; border: none; border-radius: 10px; cursor: pointer;">%choice%</button>'
+    button_label: 'Next', // Customize the button label
+    button_html: '<button class="jspsych-btn" style="font-size: 30px; padding: 10px 20px;">%choice%</button>' // Customize the button style
 };
 
 
 timeline.push(trial1)
 
+
+// USE THIS FUNCTION TO LOG VARIABLES
+console.log('Logging Variables') ;
+
+
 var opening = {
     type: jsPsychInstructions,
     pages: [
         '<div style="text-align: center; margin: 50px;"></div>' +
-        '<div style="text-align: center; margin: 0 auto; max-width: 600px; font-size: 20px; line-height: 1.6; color: #333; padding: 20px;">' +
-        '<p>In this experiment, on each trial, you will use a slider to make judgments about how simple or complex some objects are.</p>' +
-        '<p>Moving the slider to the left indicates <strong>simplicity</strong> (i.e., the object is simple), while moving it to the right indicates <strong>complexity</strong> (i.e., the object is complex).</p>' + 
-        "<p style='font-size:18px; color: #555;'>You can adjust the slider freely to indicate <strong>how simple or complex</strong> you think the object is, from <em>very or slightly simple</em> to <em>very or slightly complex</em>.</p>"+
-        '<p><strong>Let’s see some examples.</strong></p>' +
-        '</div>'
+        '<div style="text-align: center; margin: 0 auto; max-width: 600px; font-size: 30px;">' +'<p> <font size="4">In this experiment, on each trial you will see an individual word. We will ask you to make a judgment about this word.<font> <p>'  +
+        '</div>'   
     ],
-    on_finish: function(data) {
-        // Capture info from Prolific
+    on_finish: function(data) {// capture info from Prolific
         var subject_id = jsPsych.data.getURLVariable('PROLIFIC_PID');
         var study_id = jsPsych.data.getURLVariable('STUDY_ID');
         var session_id = jsPsych.data.getURLVariable('SESSION_ID');
-
-        console.log("subject");
-        console.log(subject_id);
-
+        
+        console.log(study_id, session_id, subject_id);
+        
         jsPsych.data.addProperties({
             subject_id: subject_id,
             study_id: study_id,
             session_id: session_id,
         });
-
-        console.log("from object data");
-        console.log(data.subject_id, data.study_id, data.session_id);
-    },
+        console.log("from object data")
+        console.log(data.subject_id, data.study_id, data.session_id) },
     show_clickable_nav: true,
-    button_label: "Next",
-    button_html: '<button class="jspsych-btn" style="font-size: 20px; padding: 12px 24px; background-color: #8C1515; color: white; border: none; border-radius: 10px; cursor: pointer;">%choice%</button>'
-};
 
+};
 
 timeline.push(opening);
 
-var practice_image_data = [
-    { stimulus: "square.png", correct_below: 50 }, 
-    { stimulus: "heptagon.png", correct_above: 50 },
-    { stimulus: "concave.png", correct_above: 50 }, 
-    { stimulus: "circle.png", correct_below: 50 }
-];
-
-// Shuffle the practice images
-practice_image_data = jsPsych.randomization.shuffle(practice_image_data);
-
-// Practice block
-var practice_complexity = {
-    timeline: practice_image_data.map(item => ({
-        type: jsPsychImageSliderResponse,
-        stimulus: item.stimulus,
-        labels: ['Simple', 'Complex'],
-        prompt: "<p style='font-size:22px; margin-bottom: 15px;'>How complex is this object?</p>" +
-        "<p style='font-size:18px; color: #555;'>Move the slider to the left for <strong>simple</strong> objects and to the right for <strong>complex</strong> objects.</p>" ,
-
-        stimulus_height: 200,
-        require_movement: true,
-
-        on_finish: function(data) {
-            var response = data.response;
-            var isCorrect = (item.correct_above !== undefined && response > item.correct_above) ||
-                            (item.correct_below !== undefined && response < item.correct_below);
-            var blockname = "practice block";
-            
-            // Store data
-            jsPsych.data.addDataToLastTrial({
-                pic: item.stimulus,
-                correct: isCorrect,
-                response_value: response,
-                block: blockname
-            });
-        }
-    }))
-};
-
-// Feedback trial (shown after each slider response)
-var feedback_trial = {
-    type: jsPsychHtmlButtonResponse,
-    stimulus: function() {
-        var last_trial = jsPsych.data.getLastTrialData().values()[0];
-        var response = last_trial.response;
-        var item = practice_image_data.find(img => img.stimulus === last_trial.pic);
-        var isCorrect = (item.correct_above !== undefined && response > item.correct_above) ||
-                        (item.correct_below !== undefined && response < item.correct_below);
-
-        return isCorrect
-            ? `<p style='color:green; font-size:22px; font-weight:bold;'>✅ Correct!</p>
-               <p style='font-size:18px; color:#333;'>${
-                item.correct_above !== undefined 
-                ? "Remember: Move the slider <strong>right</strong> for complex objects."
-                : "Remember: Move the slider <strong>left</strong> for simple objects."
-               }</p>`
-            : `<p style='color:red; font-size:22px; font-weight:bold;'>❌ Oops! Try again.</p>
-               <p style='font-size:18px; color:#333;'>${
-                item.correct_above !== undefined 
-                ? "You should slide <strong>right</strong> for complex objects."
-                : "You should slide <strong>left</strong> for simple objects."
-               }</p>`;
-    },
-    choices: ["Next"],
-    button_html: '<button class="jspsych-btn" style="font-size:18px; padding: 12px 24px; background-color:#8C1515; color:white; border:none; border-radius:8px; cursor:pointer;">%choice%</button>'
-};
-
-// Combine trials (slider + feedback) in sequence
-var full_practice_complexity = {
-    timeline: [].concat(...practice_image_data.map(item => [
-        { ...practice_complexity.timeline.find(t => t.stimulus === item.stimulus) }, // Slider trial
-        feedback_trial // Feedback trial
-    ]))
-};
-
-
-timeline.push(full_practice_complexity);
-
-var start = {
-    type: jsPsychInstructions,
-    pages: [
-        '<div style="text-align: center; margin: 50px 0;">' +
-        '<p style="font-size: 24px; font-weight: bold;">Now, let’s begin!</p>' +
-        '<p style="font-size: 18px; color: #555;">Click the button below to start the experiment.</p>' +
-        '</div>'
-    ],
-    show_clickable_nav: true,
-    button_label: 'Begin',
-    button_html: '<button class="jspsych-btn" style="font-size: 20px; padding: 12px 24px; background-color:#8C1515; color:white; border:none; border-radius:8px; cursor:pointer;">%choice%</button>'
-};
-
-timeline.push(start);
-
-
-var block_pics = {
+var practice_solidity= {
     timeline: [
         {
-            type: jsPsychImageSliderResponse,
-            stimulus: jsPsych.timelineVariable('stimulus'),
-            labels: ['simple', 'complex'],
-            prompt: "<p style='margin-bottom: 5px;'>How complex is this object?</p>", // Adjust prompt spacing
-            stimulus_height: 350, // Image height
-
-            stimulus_css: {
-                "margin-top": "-40px"  // Moves image UP
-            },
-
-            slider_container_css: {
-                "margin-top": "-60px", // Moves slider UP
-                "position": "relative"
-            },
-
-            button_css: {
-                "margin-top": "-50px" // Moves the Continue button UP
-            },
-
-            require_movement: true,
-
+            type: jsPsychSurveyMultiChoice,
+            questions: [
+                {
+                    prompt: "A block of metal",
+                    options: ['solid', 'non-solid'],
+                    required: true,
+                },
+    
+            ],
             on_finish: function(data) {
-                var currentPic = jsPsych.timelineVariable('stimulus');
-                var blockname = "blockpics";
+                var currentWord = "A block of metal";
+                console.log("testing");
+                //console.log(jsPsych.data.get().values()[2].response.Q0);
+                console.log(jsPsych.data.getLastTrialData().values()[0].response.Q0);
+
+                //var response = JSON.parse(jsPsych.data.get().values()[2].response.Q0); 
+                //var response = JSON.parse(data.response).Q0; // Get the participant's response
+                //var response = jsPsych.data.get().values()[2].response.Q0; 
+                var response = jsPsych.data.getLastTrialData().values()[0].response.Q0;
+                var isCorrect = response === 'solid'; 
+                var blockname = "solidity";
 
                 jsPsych.data.addDataToLastTrial({
-                    pic: currentPic,
-                    block: blockname,
+                    theword: currentWord,
+                    theblock: blockname,
+                });
+
+                jsPsych.data.addDataToLastTrial({
+                    correct: isCorrect,
+                });
+
+
+                var feedbackMessage = isCorrect ? "Correct! Now let's begin" : "Incorrect! a block of metal is a solid object. Now let's begin! "; 
+                alert(feedbackMessage); 
+                
+            } 
+        }
+    ],
+};
+//timeline.push(practice_solidity);
+
+// trial : 1
+const instructions_solidity = {
+    timeline:[
+        {
+            type: jsPsychHtmlButtonResponse,
+            stimulus:
+            '<p> <font size="4"> 각 단계마다 하나의 단어가 제시됩니다. 귀하는 이 단어에 대한 판단을 하게 됩니다. <font> <p>' +
+            '<p> <font size="4"> 예를 들어, 다음 문장을 읽어주세요: <b>“나는 펜이 여러 개 필요해”</b>. <font><p>' +
+            '<p> <font size="4">  이 문장에서 <b>[펜]</b> 은 <b>고형성</b> 즉 단단한 물질을 가리킵니다.<font> <p>' +
+            '<p> <font size="4"> 반면, 다음 문장을 읽어주세요: <b>“나는 물을 조금 마시고 싶어”</b>, 이 문장에서 <b>[물]</b> 은 <b>고형성</b> 즉 단단한 물질을 의미하지 않습니다. <font> <p>' +
+            '<p> <font size="4"> <b>주의</b>: 단어 <b>"보라색"</b> 나오면 <b>"고형물"</b> 을 선택하세요<font> <p>' +
+            '<p> <font size="4"> 이제 시작하겠습니다! <font> <p> ',
+            choices: ['Continue'], 
+
+        }, ]
+}
+//timeline.push(instructions_solidity);
+
+
+// trial: 2 to length of words-1 ( 2 and 5 words = 6 trials now )
+var block_solidity = {
+    timeline: [
+        {
+            type: jsPsychSurveyMultiChoice,
+            questions: [
+                {
+                    prompt: jsPsych.timelineVariable('uni_lemma'),
+                    options: ['solid', 'non-solid', 'unclear/unknown'],
+                    required: true,
+                }
+      
+            ],
+            
+            on_finish: function(data) {
+                // Access the value of 'uni_lemma' for the current trial
+                var currentWord = jsPsych.timelineVariable('uni_lemma');
+                var blockname = "solidity";
+
+
+                jsPsych.data.addDataToLastTrial({
+                    theword: currentWord,
+                    theblock: blockname,
+                });
+                // Add the 'word' property to the jsPsych data for this trial
+                //jsPsych.data.addProperties({ word: currentWord });
+            } 
+        }
+    ],
+    timeline_variables: selectedWords,
+    randomize_order: true
+};
+
+var attention = {
+    type: jsPsychSurveyMultiChoice,
+    questions: [
+      {
+        prompt: "PURPLE", 
+        options: ['solid', 'non-solid', 'unclear/unknown'], 
+        required: true,
+        horizontal: false
+      }, 
+    ],
+    on_finish: function(data) {
+        // Access the value of 'uni_lemma' for the current trial
+        var currentWord = "PURPLE";
+        var blockname = "attention";
+
+
+        jsPsych.data.addDataToLastTrial({
+            theword: currentWord,
+            theblock: blockname,
+        });
+
+  },
+};
+
+var solidity = {
+    timeline: [instructions_solidity, practice_solidity, block_solidity, attention], 
+    randomization: false,
+}
+
+//timeline.push(solidity);
+
+//trial: 7
+const instructions_countmass = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus:
+    '<p> <font size="4"> One Judegment is whether a word is a count or a mass noun. A <b>count noun</b> refers to objects that can be divided into <b>individual units and counted</b>.<font> <p>' +
+    '<p> <font size="4"> For example, consider the sentence: <b>“I need several pens”</b>. <font> <p>' +
+    '<p> <font size="4"> [<b>Pen</b>] is a count noun.</font> <p>' +
+    '<p> <font size="4">A noun that refers to <b>undifferentiated and uncountable substances</b> is called a <b>mass noun</b>. <font> <p>' +
+    '<p> <font size="4"> For example, consider the sentence: <b>“I need some water”</b>. <font> <p>' +
+    '<p> <font size="4"> [<b>Water</b>] is a mass noun.<font> <p>'+ 
+    '<p> <font size="4"> <b>Note</b>: when you see the word <b>"GREY"</b> click <b>"count noun"</b> <font> <p>' +
+    '<p> <font size="4"> Lets begin!<font> <p>',
+    choices: ['Continue']
+};
+//timeline.push(instructions_countmass);
+
+
+// Shuffle the words_array to randomize the order
+shuffleArray(chosenarray);
+// Select the first 100 rows
+var selectedWords2 = chosenarray.slice(0, 2);
+
+var practice_countmass= {
+    timeline: [
+        {
+            type: jsPsychSurveyMultiChoice,
+            questions: [
+                {
+                    prompt: "Would you like a chair? chair is a",
+                    options: ['count noun', 'Mass noun'],
+                    required: true,
+                },
+            ],
+            on_finish: function(data) {
+                var currentWord = "Would you like a chair? chair is a";
+                console.log("testing");
+                console.log(jsPsych.data.get().values()[2].response.Q0);
+                var response = jsPsych.data.getLastTrialData().values()[0].response.Q0;
+                var isCorrect = response === 'count noun'; 
+                blockname = "count_mass";
+
+                jsPsych.data.addDataToLastTrial({
+                    theword: currentWord,
+                    theblock: blockname,
+                    correct: isCorrect,
+                });
+
+                var feedbackMessage = isCorrect ? "Correct! Now let's begin" : "Incorrect! chair is a count noun. Now let's begin!"; 
+                alert(feedbackMessage); 
+            } 
+        }
+    ],
+};
+
+var block_countmass = {
+    timeline: [
+        {
+            type: jsPsychSurveyMultiChoice,
+            questions: [
+                {
+                    prompt: jsPsych.timelineVariable('uni_lemma'),
+                    options: ['Count noun', 'Mass noun' , 'Unclear/unknown'],
+                    required: true ,
+                    // on_finish: function(data){
+                    //       data.word = selectedWords2['uni_lemma'];
+                    //     }
+                }
+            ],
+            on_finish: function(data) {
+                // Access the value of 'uni_lemma' for the current trial
+                var currentWord = jsPsych.timelineVariable('uni_lemma');
+                var blockname= "count_mass";
+
+                jsPsych.data.addDataToLastTrial({
+                    theword: currentWord, 
+                    theblock: blockname,
                 });
             }
         },
     ],
-    timeline_variables: chosenarray,
+    timeline_variables: selectedWords2,
     randomize_order: true
 };
 
-timeline.push(block_pics);
+var attention2 = {
+    type: jsPsychSurveyMultiChoice,
+    questions: [
+      {
+        prompt: "grey", 
+        options: ['count noun', 'mass noun' , 'unclear/ unknown'], 
+        required: true,
+        horizontal: false
+      }, 
+    ],
+    on_finish: function(data) {
+        // Access the value of 'uni_lemma' for the current trial
+        var currentWord = "grey";
+        var blockname = "attention";
 
 
+        jsPsych.data.addDataToLastTrial({
+            theword: currentWord,
+            theblock: blockname,
+        });
+
+  },
+};
+
+var countmass = {
+    timeline: [instructions_countmass, practice_countmass, block_countmass, attention2], 
+    randomization: false,
+}
+
+//timeline.push(countmass);
+
+// Shuffle the words_array to randomize the order
+shuffleArray(chosenarray);
+// Select the first 100 rows
+var selectedWords3 = chosenarray.slice(0, 2);
+
+const instructions_category = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: 
+    '<p> <font size="4"> 이번에는 단어의 범주를 판단하실 차레입니다. 다음 문장을 읽어주세요: <b>“나는 여러 개의 펜이 필요해”</b>. <font> <p>' +
+    '<p> <font size="4"> <b>[펜]</b> 은 <b>"형태"를 기준으로 조직된 단어의 범주에 속합니다</b>. 모든 펜의 형태, 또는 모양, 은 비슷하지만, 색깔이나 재질이 다를수 있기 때문입니다.<font> <p>' +
+    '<p> <font size="4"> 반면, 다음 문장을 읽어주세요: <b>“나는 물을 조금 마시고 싶어”</b>.<font> <p>' +
+    '<p> <font size="4"> 여기에서 <b>[물]</b> 은 <b>"재질"을 기준으로 조직된 단어의 범주에 속합니다</b>. 물은 여러 색이나 형태로 변할 수 있지만, 항상 같은 재질로 이루어져 있어야 하기 때문입니다.<font> <p>'+
+    '<p> <font size="4"> 이제, 다음 단어들이 “형태” 아니면 “재질”의 기준으로 분류되는지 판단해주세요. 일부 단어는 다소 어려울 수도 있지만, 최선을 다해 주시길 바랍니다.<font> <p>'+
+    '<p> <font size="4"> <b>주의</b>: <b>"라벤더"</b> 라는 단어가 나오면 <b>"색깔"</b> 을 선택하세요<font> <p>' +
+    '<p> <font size="4"> 시작하겠습니다! <font> <p>' ,
+    choices: ['Continue']
+};
+//timeline.push(instructions_category);
+
+var practice_category= {
+    timeline: [
+        {
+            type: jsPsychSurveyMultiChoice,
+            questions: [
+                {
+                    prompt: "A square belongs to a category that is organized by",
+                    options: ['shape', 'material', 'color'],
+                    required: true,
+                },
+            ],
+            on_finish: function(data) {
+                var currentWord = "A square belongs to a category that is organized by";
+                console.log("testing");
+                console.log(jsPsych.data.get().values()[2].response.Q0);
+                var response = jsPsych.data.getLastTrialData().values()[0].response.Q0;
+                var isCorrect = response === 'shape'; 
+                var blockname = "category" ;
+
+                jsPsych.data.addDataToLastTrial({
+                    theword: currentWord,
+                    theblock: blockname,
+                    correct: isCorrect
+                });
+
+                var feedbackMessage = isCorrect ? "Correct!, Now let's begin" : "Incorrect! square is organized around shape, all squares are of the same shape. Now let's begin!"; 
+                alert(feedbackMessage); 
+            } 
+        }
+    ],
+};
+
+
+var block_category = {
+    timeline: [
+        {
+            type: jsPsychSurveyMultiChoice,
+            questions: [
+                {
+                    // prompt: jsPsych.timelineVariable('uni_lemma') + 'belongs to a category that is organized by: ' ,
+                    prompt: () => `${jsPsych.timelineVariable('uni_lemma')} belongs to a category that is organized by:`,
+                    options: ['shape', 'color', 'material', 'none of these'],
+                    required: true ,
+                    add_other_option: true,
+                    // on_finish: function(data){
+                    //       data.word = selectedWords3['uni_lemma'];
+                    //     }
+                },    
+            ],
+        
+            on_finish: function(data) {
+                // Access the value of 'uni_lemma' for the current trial
+                var currentWord = jsPsych.timelineVariable('uni_lemma');
+                var blockname = "category_organization";
+                jsPsych.data.addDataToLastTrial({
+                    theword: currentWord, 
+                    theblock: blockname,
+                });
+            },
+        },
+    ],
+    timeline_variables: selectedWords3,
+    randomize_order: true
+};
+
+var attention3 = {
+    type: jsPsychSurveyMultiChoice,
+    questions: [
+      {
+        prompt: "lavender", 
+        options: ['shape', 'color', 'material', 'none of these'], 
+        required: true,
+        horizontal: false
+      }, 
+    ],
+    on_finish: function(data) {
+        // Access the value of 'uni_lemma' for the current trial
+        var currentWord = "lavender";
+        var blockname = "attention";
+
+
+        jsPsych.data.addDataToLastTrial({
+            theword: currentWord,
+            theblock: blockname,
+        });
+
+  },
+};
+console.log(jsPsych.timelineVariable('uni_lemma'));
+
+//timeline.push(block_category);
+
+var category = {
+    timeline: [instructions_category,practice_category, block_category, attention3],
+    randomization: false,
+}
+
+
+
+var block_array = [solidity, countmass, category];
+//var blocks = shuffleArray(block_array);
+var blocks = jsPsych.randomization.sampleWithoutReplacement(block_array, 3);
+
+console.log("blockarray");
+console.log(blocks);
+console.log(blocks[0]); 
+
+
+timeline.push(blocks[0]); 
+timeline.push(blocks[1]); 
+timeline.push(blocks[2]); 
 
 var goodbye = {
     type: jsPsychInstructions,
@@ -295,3 +545,10 @@ timeline.push(goodbye);
 
 
 jsPsych.run(timeline);
+
+
+
+
+
+
+// https://github.com/levante-framework/core-tasks/blob/main/task-launcher/src/tasks/math/trials/sliderStimulus.js
