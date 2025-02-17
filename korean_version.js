@@ -128,32 +128,7 @@ timeline.push(trial1)
 console.log('Logging Variables') ;
 
 
-var opening = {
-    type: jsPsychInstructions,
-    pages: [
-        '<div style="text-align: center; margin: 50px;"></div>' +
-        '<div style="text-align: center; margin: 0 auto; max-width: 600px; font-size: 30px;">' +'<p> <font size="4">In this experiment, on each trial you will see an individual word. We will ask you to make a judgment about this word.<font> <p>'  +
-        '</div>'   
-    ],
-    on_finish: function(data) {// capture info from Prolific
-        var subject_id = jsPsych.data.getURLVariable('PROLIFIC_PID');
-        var study_id = jsPsych.data.getURLVariable('STUDY_ID');
-        var session_id = jsPsych.data.getURLVariable('SESSION_ID');
-        
-        console.log(study_id, session_id, subject_id);
-        
-        jsPsych.data.addProperties({
-            subject_id: subject_id,
-            study_id: study_id,
-            session_id: session_id,
-        });
-        console.log("from object data")
-        console.log(data.subject_id, data.study_id, data.session_id) },
-    show_clickable_nav: true,
 
-};
-
-timeline.push(opening);
 
 var practice_solidity= {
     timeline: [
@@ -225,7 +200,7 @@ var block_solidity = {
             type: jsPsychSurveyMultiChoice,
             questions: [
                 {
-                    prompt: jsPsych.timelineVariable('uni_lemma'),
+                    prompt: jsPsych.timelineVariable('theword'),
                     options: ['solid', 'non-solid', 'unclear/unknown'],
                     required: true,
                 }
@@ -233,8 +208,8 @@ var block_solidity = {
             ],
             
             on_finish: function(data) {
-                // Access the value of 'uni_lemma' for the current trial
-                var currentWord = jsPsych.timelineVariable('uni_lemma');
+                // Access the value of 'theword' for the current trial
+                var currentWord = jsPsych.timelineVariable('theword');
                 var blockname = "solidity";
 
 
@@ -262,7 +237,7 @@ var attention = {
       }, 
     ],
     on_finish: function(data) {
-        // Access the value of 'uni_lemma' for the current trial
+        // Access the value of 'theword' for the current trial
         var currentWord = "PURPLE";
         var blockname = "attention";
 
@@ -342,17 +317,17 @@ var block_countmass = {
             type: jsPsychSurveyMultiChoice,
             questions: [
                 {
-                    prompt: jsPsych.timelineVariable('uni_lemma'),
+                    prompt: jsPsych.timelineVariable('theword'),
                     options: ['Count noun', 'Mass noun' , 'Unclear/unknown'],
                     required: true ,
                     // on_finish: function(data){
-                    //       data.word = selectedWords2['uni_lemma'];
+                    //       data.word = selectedWords2['theword'];
                     //     }
                 }
             ],
             on_finish: function(data) {
-                // Access the value of 'uni_lemma' for the current trial
-                var currentWord = jsPsych.timelineVariable('uni_lemma');
+                // Access the value of 'theword' for the current trial
+                var currentWord = jsPsych.timelineVariable('theword');
                 var blockname= "count_mass";
 
                 jsPsych.data.addDataToLastTrial({
@@ -377,7 +352,7 @@ var attention2 = {
       }, 
     ],
     on_finish: function(data) {
-        // Access the value of 'uni_lemma' for the current trial
+        // Access the value of 'theword' for the current trial
         var currentWord = "grey";
         var blockname = "attention";
 
@@ -455,20 +430,20 @@ var block_category = {
             type: jsPsychSurveyMultiChoice,
             questions: [
                 {
-                    // prompt: jsPsych.timelineVariable('uni_lemma') + 'belongs to a category that is organized by: ' ,
-                    prompt: () => `${jsPsych.timelineVariable('uni_lemma')} belongs to a category that is organized by:`,
+                    // prompt: jsPsych.timelineVariable('theword') + 'belongs to a category that is organized by: ' ,
+                    prompt: () => `${jsPsych.timelineVariable('theword')} belongs to a category that is organized by:`,
                     options: ['shape', 'color', 'material', 'none of these'],
                     required: true ,
                     add_other_option: true,
                     // on_finish: function(data){
-                    //       data.word = selectedWords3['uni_lemma'];
+                    //       data.word = selectedWords3['theword'];
                     //     }
                 },    
             ],
         
             on_finish: function(data) {
-                // Access the value of 'uni_lemma' for the current trial
-                var currentWord = jsPsych.timelineVariable('uni_lemma');
+                // Access the value of 'theword' for the current trial
+                var currentWord = jsPsych.timelineVariable('theword');
                 var blockname = "category_organization";
                 jsPsych.data.addDataToLastTrial({
                     theword: currentWord, 
@@ -492,7 +467,7 @@ var attention3 = {
       }, 
     ],
     on_finish: function(data) {
-        // Access the value of 'uni_lemma' for the current trial
+        // Access the value of 'theword' for the current trial
         var currentWord = "lavender";
         var blockname = "attention";
 
@@ -504,7 +479,7 @@ var attention3 = {
 
   },
 };
-console.log(jsPsych.timelineVariable('uni_lemma'));
+console.log(jsPsych.timelineVariable('theword'));
 
 //timeline.push(block_category);
 
@@ -552,3 +527,273 @@ jsPsych.run(timeline);
 
 
 // https://github.com/levante-framework/core-tasks/blob/main/task-launcher/src/tasks/math/trials/sliderStimulus.js
+
+
+
+
+// Instructions for Solidity
+const instructions_solidity = {
+    timeline: [
+        {
+            type: jsPsychHtmlButtonResponse,
+            stimulus: `
+                <div style="max-width: 700px; margin: 50px auto; text-align: center; font-size: 20px; line-height: 1.6; color: #333;">
+                    <div style="background: #f9f9f9; padding: 30px; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
+                        <p><b>이번 판단 기준은 해당 단어가 고형물인지 아닌지 판단하는 것입니다.</b></p>
+                        <p>예를 들어, 다음 문장을 읽어주세요: <b>“나는 펜이 여러 개 필요해”</b>.</p>
+                        <p>이 문장에서 <b>[펜]</b>은 <b>고형물</b> (단단한 물질) 입니다.</p>
+                        <p>반면, <b>“나는 물을 조금 마시고 싶어”</b>에서 <b>[물]</b>은 <b>고형물</b>이 아닙니다.</p>
+                        <p><b>주의:</b> 단어 <b>"보라색"</b>이 나오면 <b>"고형물"</b>을 선택하세요.</p>
+                        <p>이제 시작하겠습니다!</p>
+                    </div>
+                </div>`,
+            choices: ['다음'],
+            button_html: '<button class="jspsych-btn" style="font-size: 22px; padding: 12px 24px; background: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer; transition: 0.3s; box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);"> %choice% </button>'
+        },
+        console.log("solidity trial openning")
+    ]   
+};
+
+// Function to create practice trials with inline feedback
+const createPracticeTrial = (prompt, correctAnswer, correctFeedback, incorrectFeedback) => {
+    return {
+        timeline: [
+            {
+                type: jsPsychSurveyMultiChoice,
+                questions: [
+                    {
+                        prompt: `<div style="max-width: 700px; text-align: center; margin: 30px auto; font-size: 22px;">${prompt}</div>`,
+                        options: ['고형물', '비고형물'],
+                        required: true
+                    }
+                ],
+                on_finish: function(data) {
+                    const response = jsPsych.data.getLastTrialData().values()[0].response.Q0;
+                    const isCorrect = response === correctAnswer;
+                    const blockname = "practice_solidity";
+
+                    jsPsych.data.addDataToLastTrial({
+                        theword: prompt,
+                        theblock: blockname,
+                        correct: isCorrect
+                    });
+                }
+            },
+            {
+                type: jsPsychHtmlButtonResponse,
+                stimulus: function() {
+                    const lastResponse = jsPsych.data.getLastTrialData().values()[0].response.Q0;
+                    const isCorrect = lastResponse === correctAnswer;
+                    return `<div style="max-width: 700px; text-align: center; font-size: 22px; padding: 20px; border-radius: 10px; background: ${isCorrect ? '#DFF2BF' : '#FFBABA'}; color: ${isCorrect ? '#4F8A10' : '#D8000C'}; margin: 30px auto;">
+                        ${isCorrect ? correctFeedback : incorrectFeedback}
+                    </div>`;
+                },
+                choices: ['계속하기'],
+                button_html: '<button class="jspsych-btn" style="font-size: 20px; padding: 10px 20px; background: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer; transition: 0.3s;"> %choice% </button>'
+            },
+            console.log("solidity trial practice")
+        ]
+    };
+};
+
+// Practice Trials
+const practice_solidity1 = createPracticeTrial(
+    "[이것은 쇳덩어리 입니다], 이 문장에서 쇳덩어리는:",
+    '고형물',
+    "✅ 맞습니다! 계속 진행하겠습니다!",
+    "❌ 틀렸습니다! 쇳덩어리는 고형물입니다. 계속 진행하겠습니다!"
+);
+
+const practice_solidity2 = createPracticeTrial(
+    "[이것은 모래더미 입니다], 이 문장에서 모래더미는:",
+    '비고형물',
+    "✅ 맞습니다! 계속 진행하겠습니다!",
+    "❌ 틀렸습니다! 모래더미는 비고형물입니다. 계속 진행하겠습니다!"
+);
+
+// Main Solidity Trials
+var block_solidity = {
+    timeline: [
+        {
+            type: jsPsychSurveyMultiChoice,
+            questions: [
+                {
+                    prompt: `<div style="max-width: 700px; text-align: center; margin: 30px auto; font-size: 22px;">${jsPsych.timelineVariable('theword')}</div>`,
+                    options: ['고형물', '비고형물', '불분명/알 수 없음'],
+                    required: true
+                }
+            ],
+            on_finish: function(data) {
+                jsPsych.data.addDataToLastTrial({
+                    theword: jsPsych.timelineVariable('theword'),
+                    theblock: "solidity"
+                });
+            },
+        },
+        console.log("solidity main block")
+    ],
+    timeline_variables: selectedWords,
+    randomize_order: true
+};
+
+// Attention Check Trial
+var attention_solidity = {
+    type: jsPsychSurveyMultiChoice,
+    questions: [
+        {
+            prompt: `<div style="max-width: 700px; text-align: center; margin: 30px auto; font-size: 22px;">보라색</div>`,
+            options: ['고형물', '비고형물', '불분명/알 수 없음'],
+            required: true
+        }
+    ],
+    on_finish: function(data) {
+        jsPsych.data.addDataToLastTrial({
+            theword: "purple",
+            theblock: "attention_solidity"
+        });
+    }
+};
+
+// Combine all Solidity trials into one sequence
+const solidity = {
+    timeline: [instructions_solidity, practice_solidity1, practice_solidity2, block_solidity, attention_solidity],
+};
+
+//timeline.push(solidity);
+
+
+
+
+// Function to create a practice trial with smooth feedback transition
+function createPracticeTrial2(promptText, correctAnswer) {
+    return {
+        timeline: [
+            {
+                type: jsPsychSurveyMultiChoice,
+                questions: [
+                    {
+                        prompt: `<div style="font-size: 22px; text-align: center; padding: 20px; background-color: #f9f9f9; border-radius: 10px;">
+                                    ${promptText}
+                                 </div>`,
+                        options: ['형태', '재질', '색깔'],
+                        required: true,
+                    },
+                ],
+                on_finish: function(data) {
+                    var response = data.response.Q0;
+                    var isCorrect = response === correctAnswer;
+                    var feedbackMessage = isCorrect 
+                        ? `<div style="font-size: 22px; color: green; text-align: center; padding: 20px; background-color: #e6ffe6; border-radius: 10px;">
+                                맞습니다! 계속 진행하겠습니다!
+                           </div>` 
+                        : `<div style="font-size: 22px; color: red; text-align: center; padding: 20px; background-color: #ffe6e6; border-radius: 10px;">
+                                틀렸습니다! '${correctAnswer}'이/가 올바른 답입니다. 계속 진행하겠습니다!
+                           </div>`;
+
+                    jsPsych.data.addDataToLastTrial({
+                        correct: isCorrect,
+                        feedback: feedbackMessage
+                    });
+                }
+            },
+            {
+                type: jsPsychHtmlButtonResponse,
+                stimulus: function() {
+                    return jsPsych.data.getLastTrialData().values()[0].feedback;
+                },
+                choices: ['다음'],
+                button_html: '<button style="font-size: 18px; padding: 10px 20px; border-radius: 10px; background-color: #4CAF50; color: white; border: none;">%choice%</button>'
+            }, 
+            console.log("practice  category function done")
+        ], 
+    };
+}
+
+// Category practice trials
+var practice_category1 = createPracticeTrial2(
+    "[이것은 정사각형 책상입니다],이 문장에서 “정사각형”은 어느 기준으로 조직된 범주에 속하나요?",
+    "형태"
+);
+
+var practice_category2 = createPracticeTrial2(
+    "[이것은 빨간색 책상입니다], 이 문장에서 '빨간색'은 어느 기준으로 조직된 범주에 속하나요?",
+    "색깔"
+);
+
+// Instructions screen
+const instructions_category = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: `<div style="font-size: 22px; text-align: center; padding: 20px; background-color: #f9f9f9; border-radius: 10px;">
+                    <p>이번에는 단어의 범주를 판단하실 차례입니다. 다음 문장을 읽어주세요: <b>“나는 여러 개의 펜이 필요해”</b>.</p>
+                    <p>여기에서 <b>[펜]</b>은 <b>“형태”를 기준으로 조직된 단어의 범주</b>에 속합니다.</p>
+                    <p>반면, 다음 문장을 읽어주세요: <b>“나는 물을 조금 마시고 싶어”</b>.</p>
+                    <p>여기에서 <b>[물]</b>은 <b>재질</b>을 기준으로 조직된 단어의 범주에 속합니다.</p>
+                    <p>이제, 다음 단어들이 “형태” 아니면 “재질”의 기준으로 분류되는지 판단해주세요.</p>
+                    <p><b>주의</b>: <b>"라벤더"</b>라는 단어가 나타나면 <b>"색깔"</b>을 선택하세요.</p>
+                    <p><b>시작하겠습니다!</b></p>
+               </div>`,
+    choices: ['다음'],
+    button_html: '<button style="font-size: 18px; padding: 10px 20px; border-radius: 10px; background-color: #4CAF50; color: white; border: none;">%choice%</button>',
+    
+};
+
+// Main block of trials
+var block_category = {
+    timeline: [
+        {
+            type: jsPsychSurveyMultiChoice,
+            questions: [
+                {
+                    prompt: () => `<div style="font-size: 22px; text-align: center; padding: 20px; background-color: #f9f9f9; border-radius: 10px;">
+                                    ${jsPsych.timelineVariable('theword')} 은/는 어느 기준으로 조직된 범주에 속하나요?
+                                   </div>`,
+                    options: ['형태', '색깔', '재질', '해당 없음'],
+                    required: true,
+                    add_other_option: true,
+                },   
+                console.log("category main done")
+            ],
+            on_finish: function(data) {
+                jsPsych.data.addDataToLastTrial({
+                    theword: jsPsych.timelineVariable('theword'),
+                    theblock: "category_organization",
+                });
+                console.log("category main on finish")
+            },
+        },
+    ],
+    timeline_variables: selectedWords3,
+    randomize_order: true
+};
+
+// Attention check trial
+var attention_category = {
+    type: jsPsychSurveyMultiChoice,
+    questions: [
+      {
+        prompt: `<div style="font-size: 22px; text-align: center; padding: 20px; background-color: #f9f9f9; border-radius: 10px;">
+                    라벤더
+                 </div>`,
+        options: ['형태', '색깔', '재질', '해당 없음'],
+        required: true,
+        horizontal: false
+      },
+    ],
+    on_finish: function(data) {
+        jsPsych.data.addDataToLastTrial({
+            theword: "lavender",
+            theblock: "attention_category",
+        });
+    },
+};
+
+// Full category trial sequence
+const category_timeline = [
+    instructions_category,
+    practice_category1,
+    practice_category2,
+    block_category,
+    attention_category
+];
+
+//timeline.push(...category_timeline);
