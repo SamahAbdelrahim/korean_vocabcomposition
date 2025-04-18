@@ -36,143 +36,146 @@ console.log(words_array);
 console.log(selectedWords2);
 
 // Instructions for countability task
-const instructions_countmass = {
-    type: jsPsychHtmlButtonResponse,
-    stimulus:
-        '<p> <font size="4"> One judgment is whether a word is a count or a mass noun. A <b>count noun</b> refers to objects that can be divided into <b>individual units and counted</b>.<font> <p>' +
-        '<p> <font size="4"> For example, consider the sentence: <b>“I need several pens”</b>. <font> <p>' +
-        '<p> <font size="4"> [<b>Pen</b>] is a count noun.</font> <p>' +
-        '<p> <font size="4">A noun that refers to <b>undifferentiated and uncountable substances</b> is called a <b>mass noun</b>. <font> <p>' +
-        '<p> <font size="4"> For example, consider the sentence: <b>“I need some water”</b>. <font> <p>' +
-        '<p> <font size="4"> [<b>Water</b>] is a mass noun.<font> <p>' +
-        '<p> <font size="4"> Next, we’d like you to judge whether other words are count or mass nouns. <font> <p> ' +
-        '<p> <font size="4"> <b>Note</b>: when you see the word <b>"Grey"</b> click <b>"count noun"</b> <font> <p>' +
-        '<p> <font size="4"> Let’s begin! <font> <p>',
-    choices: ['Continue']
+// Instructions with visual examples
+const instructions_countmass1 = {
+    timeline: [{
+        type: jsPsychHtmlButtonResponse,
+        stimulus: `
+            <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.6;">
+                <p>One judgment in this task is about <b>count and mass nouns</b>.</p>
+                <p>Consider the sentence:</p>
+                <p><b>"I need several pens."</b></p>
+                <p>Here, <b>pen</b> is a <b>count noun</b> because it refers to objects that can be <b>divided into individual units and counted</b>.</p>
+            </div>`,
+        choices: ['Continue'],
+        button_html: '<button class="jspsych-btn" style="font-size: 20px; padding: 12px 24px; margin: 10px;">%choice%</button>'
+    }]
 };
-//timeline.push(instructions_countmass);
 
-var practice_countmass1 = {
-    timeline: [
-        {
-            type: jsPsychSurveyMultiChoice,
-            questions: [
-                {
-                    prompt: " In the sentence [would you like a Chair?], a chair is: ",
-                    options: ['count noun', 'mass noun'],
-                    required: true,
+const instructions_countmass2 = {
+    timeline: [{
+        type: jsPsychHtmlButtonResponse,
+        stimulus: `
+            <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.6;">
+                <p>Now, consider the sentence:</p>
+                <p><b>"I need some water."</b></p>
+                <p>Here, <b>water</b> is a <b>mass noun</b> because it refers to an <b>undifferentiated and uncountable substance</b>.</p>
+                <p style="margin-top: 20px;">Let's practice with some examples!</p>
+            </div>`,
+        choices: ['Continue'],
+        button_html: '<button class="jspsych-btn" style="font-size: 20px; padding: 12px 24px; margin: 10px;">%choice%</button>'
+    }]
+};
+
+const instructions_countmass3 = {
+    timeline: [{
+        type: jsPsychHtmlButtonResponse,
+        stimulus: `
+            <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.6;">
+                <p><b>Important:</b> ⚠️ If you see the word <b style="color: grey;">"Grey"</b>, always select <u><b>"count noun"</b></u>.</p>
+            </div>`,
+        choices: ["Let's begin!"],
+        button_html: '<button class="jspsych-btn" style="font-size: 18px; padding: 12px 24px; margin: 10px;">%choice%</button>'
+    }]
+};
+
+// Generate practice trials with feedback
+const generatePracticeCountMassTrial = (prompt, correctAnswer, feedbackCorrect, feedbackIncorrect, theword) => {
+    return {
+        timeline: [
+            {
+                type: jsPsychSurveyMultiChoice,
+                questions: [
+                    {
+                        prompt: `<div style="font-size: 20px; text-align: center; max-width: 700px; margin: auto; font-weight: normal; display: inline-block;">${prompt}</div>`,
+                        options: ['count noun', 'mass noun', 'unclear/unknown'],
+                        required: true,
+                    }
+                ],
+                data: { correct_answer: correctAnswer, theword: theword, theblock: "practice_countmass" },
+            },
+            {
+                type: jsPsychHtmlButtonResponse,
+                stimulus: function() {
+                    const lastResponse = jsPsych.data.getLastTrialData().values()[0].response.Q0;
+                    const isCorrect = lastResponse === correctAnswer;
+                    jsPsych.data.addDataToLastTrial({ correct: isCorrect });
+                    return `
+                        <div style="text-align: center; font-size: 22px; max-width: 700px; margin: auto; padding: 20px; 
+                                    border-radius: 10px; background-color: ${isCorrect ? '#d4edda' : '#f8d7da'}; 
+                                    color: ${isCorrect ? '#155724' : '#721c24'};">
+                            <p><b>${isCorrect ? 'Correct!' : 'Incorrect!'}</b></p>
+                            <p>${isCorrect ? feedbackCorrect : feedbackIncorrect}</p>
+                        </div>`;
                 },
-            ],
-            on_finish: function (data) {
-                var currentWord = " In the sentence [would you like a Chair?], a chair is:";
-                console.log("testing");
-                console.log(jsPsych.data.get().values()[2].response.Q0);
-                var response = jsPsych.data.getLastTrialData().values()[0].response.Q0;
-                var isCorrect = response === 'count noun';
-                blockname = "practice_countmass";
-
-                jsPsych.data.addDataToLastTrial({
-                    theword: currentWord,
-                    theblock: blockname,
-                    correct: isCorrect,
-                });
-
-                var feedbackMessage = isCorrect ? "Correct! Now let's go forward!" : "Incorrect! chair is a count noun. Let's go forward!";
-                alert(feedbackMessage);
+                choices: ['Continue'],
+                button_html: '<button class="jspsych-btn" style="font-size: 18px; padding: 10px 20px; margin-top: 10px;">%choice%</button>'
             }
-        }
-    ],
+        ],
+        timeline_variables: [{ correct_answer: correctAnswer }]
+    };
 };
 
-var practice_countmass2 = {
+// Define practice trials
+const practice_countmass1 = generatePracticeCountMassTrial(
+    `In the sentence <b>[Would you like a chair?]</b>, is <b>chair</b>:`,
+    "count noun",
+    "Yes! A chair is a count noun - you can count individual chairs.",
+    "A chair is a count noun - you can count individual chairs. Let's continue!",
+    "chair"
+);
+
+const practice_countmass2 = generatePracticeCountMassTrial(
+    `In the sentence <b>[This is so much sugar]</b>, is <b>sugar</b>:`,
+    "mass noun",
+    "Correct! Sugar is a mass noun - it's an undifferentiated substance.",
+    "Sugar is a mass noun - it's an undifferentiated substance. Let's continue!",
+    "sugar"
+);
+
+// Main block
+const block_countmass = {
     timeline: [
         {
             type: jsPsychSurveyMultiChoice,
             questions: [
                 {
-                    prompt: " In the sentence [This is so much sugar?], sugar is: ",
-                    options: ['count noun', 'mass noun'],
-                    required: true,
-                },
-            ],
-            on_finish: function (data) {
-                var currentWord = " In the sentence [This is so much sugar?], sugar is: ";
-                console.log("testing");
-                console.log(jsPsych.data.get().values()[2].response.Q0);
-                var response = jsPsych.data.getLastTrialData().values()[0].response.Q0;
-                var isCorrect = response === 'mass noun';
-                blockname = "practice_countmass";
-
-                jsPsych.data.addDataToLastTrial({
-                    theword: currentWord,
-                    theblock: blockname,
-                    correct: isCorrect,
-                });
-
-                var feedbackMessage = isCorrect ? "Correct! Now let's begin! " : "Incorrect! sugar is a mass noun. Now let's begin!";
-                alert(feedbackMessage);
-            }
-        }
-    ],
-};
-
-var block_countmass = {
-    timeline: [
-        {
-            type: jsPsychSurveyMultiChoice,
-            questions: [
-                {
-                    prompt: jsPsych.timelineVariable('uni_lemma'),
+                    prompt: function() {
+                        let word = jsPsych.timelineVariable('uni_lemma');
+                        word = word.replace(/[*\n\r\t\u200b]/g, '').trim();
+                        return `<div style="font-size: 22px; text-align: center; max-width: 700px; margin: auto; font-weight: normal; display: inline-block;">
+                                    Is <b>${word}</b>:
+                                </div>`;
+                    },
                     options: ['count noun', 'mass noun', 'unclear/unknown'],
                     required: true,
-                    // on_finish: function(data){
-                    //       data.word = selectedWords2['uni_lemma'];
-                    //     }
+                    required_message: ""
                 }
             ],
-            on_finish: function (data) {
-                // Access the value of 'uni_lemma' for the current trial
+            on_finish: function(data) {
                 var currentWord = jsPsych.timelineVariable('uni_lemma');
-                var blockname = "count_mass";
-
                 jsPsych.data.addDataToLastTrial({
                     theword: currentWord,
-                    theblock: blockname,
+                    theblock: "count_mass",
                 });
             }
-        },
+        }
     ],
     timeline_variables: selectedWords2,
     randomize_order: true
 };
 
-var attention_countmass = {
-    type: jsPsychSurveyMultiChoice,
-    questions: [
-        {
-            prompt: "grey",
-            options: ['count noun', 'mass noun', 'unclear/unknown'],
-            required: true,
-            horizontal: false
-        },
+// Full Countability Block
+const countmass = {
+    timeline: [
+        instructions_countmass1,
+        instructions_countmass2,
+        instructions_countmass3,
+        practice_countmass1,
+        practice_countmass2,
+        block_countmass
     ],
-    on_finish: function (data) {
-        // Access the value of 'uni_lemma' for the current trial
-        var currentWord = "grey";
-        var blockname = "attention_countmass";
-
-
-        jsPsych.data.addDataToLastTrial({
-            theword: currentWord,
-            theblock: blockname,
-        });
-
-    },
+    randomization: false
 };
 
-var countmass = {
-    timeline: [instructions_countmass, practice_countmass1, practice_countmass2, block_countmass, attention_countmass],
-    randomization: false,
-}
-
-//timeline.push(countmass);
+timeline.push(countmass);
