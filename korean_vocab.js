@@ -2,8 +2,6 @@ import { words_array } from "./words.js";
 
 console.log(words_array);
 
-let timeline = [];
-
 // Define the shuffleArray function using Fisher-Yates algorithm
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -26,12 +24,229 @@ const chosenGroup = wordGroups[Math.floor(Math.random() * numGroups)];
 
 // Shuffle the selected group (extra randomization within the chosen group)
 shuffleArray(chosenGroup);
-// Ensure chosenGroup is an array of objects with the key "uni_lemma"
+// Modify how we prepare the word objects
 chosenGroup.forEach(word => {
     if (typeof word === 'string') {
-        word.uni_lemma = word; // Convert string to object with key "uni_lemma"
+        word = { uni_lemma: word }; // Create proper object structure
+    } else if (word.theword) {
+        word.uni_lemma = word.theword; // Map theword to uni_lemma
     }
 });
+
+console.log("chosenGroup");
+console.log(chosenGroup);
+
+let timeline = [];
+
+document.head.insertAdjacentHTML('beforeend', `<style>.jspsych-survey-multi-choice-question span.required { display: none !important; }</style>`);
+
+//--------------------------------------------------------------------------------------------
+var globalStyles = `
+    <style>
+
+        /* General Page Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+    
+        /* Main Content Box */
+        .jspsych-display-element {
+            max-width: 95%; /* Increased to give more room */
+            width: 95vw;
+            min-width: 850px;
+            background: white;
+            padding: 30px 40px; /* Increased horizontal padding */
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            margin: 0vh auto;
+            overflow: hidden;
+            position: relative;
+            top: -30px; /* Moves it up */
+        }
+    
+        /* Improve Button Styles */
+        .jspsych-btn {
+            background-color: #8C1515;
+            color: white;
+            font-size: 18px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+        }
+        .jspsych-btn:hover {
+            background-color: #700F0F;
+        }
+    
+        /* Improve Slider Styles */
+        input[type="range"] {
+            width: 80%; /* Reduced from 90% to prevent label overflow */
+            accent-color: #8C1515;
+            margin: 0 auto; /* Center the slider */
+            display: block; /* Ensure it takes its own line */
+        }
+    
+        /* Make Images & Videos More Prominent */
+        img, video {
+            max-width: 100%; /* Ensures they don't overflow */
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .jspsych-content {
+            max-width: 700px;
+            margin: auto;
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px;
+            background-color: white;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.6s ease-in-out;
+        }
+        .jspsych-btn {
+            font-size: 18px;
+            padding: 12px 24px;
+            background-color: #8C1515; 
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+        .jspsych-btn:hover {
+            background-color: #6E1111;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0px); }
+        }
+
+        /* Add specific styles for slider labels */
+        .jspsych-slider-response-container {
+            width: 90%;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        /* Style for the labels specifically */
+        .jspsych-slider-response-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 80%; /* Match slider width */
+            margin: 10px auto;
+            font-size: 16px;
+            color: #555;
+        }
+    </style>
+`;
+
+// Inject global styles into the page
+document.head.insertAdjacentHTML('beforeend', globalStyles);
+// ------------------------------------------------------------------------------------------
+let currentTrial = 0; // Track the current trial
+let totalTrials = 0; // This will be updated after the timeline is loaded
+
+// Log the timeline content to check if it's populated correctly before initialization
+console.log("Timeline before jsPsych:", timeline);
+// ------------------------------------------------------------------------------------------
+// Initialize the jsPsych experiment
+var jsPsych = initJsPsych({
+    use_webaudio: false,
+    override_safe_mode: true,
+    timeline: timeline,
+
+    // Add a timestamp at the start of the experiment
+    on_timeline_start: function () {
+        // Log the timeline content at this stage
+        console.log("Timeline in on_timeline_start:", jsPsych.getTimeline());
+
+        // Update totalTrials after the timeline is loaded
+        totalTrials = jsPsych.getTimeline().length;
+        console.log("totalTrials after timeline loaded:", totalTrials);  // Ensure totalTrials is correctly updated
+        console.log("currentTrial:", currentTrial);
+
+        // Add timestamp to data
+        jsPsych.data.addProperties({
+            timestamp: Date.now()
+        });
+
+        // Create progress bar HTML if it doesn't already exist
+        if (!document.getElementById("progress-container")) {
+            document.body.insertAdjacentHTML(
+                'afterbegin',
+                `<div id="progress-container" style="position: fixed; top: 10px; left: 50%; transform: translateX(-50%); width: 80%; z-index: 1000;">
+                    <div id="progress-bar" style="height: 20px; width: 0%; background-color: #0073e6; border-radius: 5px; transition: width 0.5s;"></div>
+                    <div id="progress-text" style="text-align: center; font-size: 16px; margin-top: 5px;">0% completed</div>
+                </div>`
+            );
+        }
+
+        // Update progress bar on start
+        updateProgressBar();
+    },
+
+    // Increment currentTrial on trial finish
+    on_trial_finish: function () {
+        currentTrial++; // Increment current trial after each trial
+        updateProgressBar(); // Update progress bar after trial
+        console.log("totalTrials:", totalTrials);
+        console.log("currentTrial:", currentTrial);
+    },
+
+    // Handle the finish of the experiment
+    on_finish: function (data) {
+        console.log("Experiment finished");
+        jsPsych.data.displayData();
+
+        var all_trials = jsPsych.data.get().values();
+        console.log("Starting to log data");
+        console.log(all_trials);
+        all_trials.forEach(trial => {
+            console.log("one trial");
+            console.log(trial);
+        });
+
+        // Log data for each trial
+        Promise.all(all_trials.map(trial => logExpData(trial)))
+            .then(() => {
+                console.log("All data logged, redirecting...");
+                window.location.href = "https://app.prolific.com/submissions/complete?cc=C1O4GW39";
+            })
+            .catch(error => {
+                console.error("Failed to log all data", error);
+                alert("There was an error saving your data. Please contact the study administrator.");
+            });
+    }
+});
+
+// Function to update the progress bar
+const updateProgressBar = () => {
+    let progress = (currentTrial / totalTrials) * 100;
+    const progressBar = document.getElementById("progress-bar");
+    const progressText = document.getElementById("progress-text");
+
+    if (progressBar && progressText) {
+        progressBar.style.width = `${progress}%`;
+        progressText.innerText = `${Math.round(progress)}% completed`;
+    }
+};
+
+// Ensure the DOM is ready before updating the progress bar
+document.addEventListener('DOMContentLoaded', (event) => {
+    // Ensure the progress bar is updated properly when DOM is loaded
+    updateProgressBar();
+});
+//const words_array = words.map(w => w.uni_lemma);
+
+// ------------------------------------------------------------------------------------------
+
 // Pick 3 arrays that contains 20 random words each from the selected group
 const selectedWords = chosenGroup.slice(0, 20);
 const selectedWords2 = chosenGroup.slice(20, 40);
