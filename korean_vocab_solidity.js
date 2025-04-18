@@ -1,24 +1,4 @@
-import { words_array } from "./words.js";
 
-console.log(words_array);
-
-let timeline = [];
-
-// Shuffle the full word array first to ensure randomness across all words
-shuffleArray(words_array);
-
-// Split the shuffled words into roughly equal groups
-const numGroups = 3;
-const groupSize = Math.ceil(words_array.length / numGroups);
-const wordGroups = Array.from({ length: numGroups }, (_, i) =>
-    words_array.slice(i * groupSize, (i + 1) * groupSize)
-);
-
-// Randomly select one group
-const chosenGroup = wordGroups[Math.floor(Math.random() * numGroups)];
-
-// Shuffle the selected group (extra randomization within the chosen group)
-shuffleArray(chosenGroup);
 
 // Pick 20 random words from the selected group
 const selectedWords = chosenGroup.slice(0, 20);
@@ -95,7 +75,7 @@ const generatePracticeSolidityTrial = (prompt, correctAnswer, feedbackCorrect, f
             },
             {
                 type: jsPsychHtmlButtonResponse,
-                stimulus: function() {
+                stimulus: function () {
                     const lastResponse = jsPsych.data.getLastTrialData().values()[0].response.Q0;
                     const isCorrect = lastResponse === correctAnswer;
                     jsPsych.data.addDataToLastTrial({ correct: isCorrect });
@@ -139,7 +119,7 @@ const block_solidity = {
             type: jsPsychSurveyMultiChoice,
             questions: [
                 {
-                    prompt: function() {
+                    prompt: function () {
                         let word = jsPsych.timelineVariable('uni_lemma');
                         word = word.replace(/[*\n\r\t\u200b]/g, '').trim();
                         return `<div style="font-size: 22px; text-align: center; max-width: 700px; margin: auto; font-weight: normal; display: inline-block;">
@@ -151,7 +131,7 @@ const block_solidity = {
                     required_message: ""
                 }
             ],
-            on_finish: function(data) {
+            on_finish: function (data) {
                 var currentWord = jsPsych.timelineVariable('uni_lemma');
                 jsPsych.data.addDataToLastTrial({
                     theword: currentWord,
