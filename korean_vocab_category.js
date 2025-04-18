@@ -1,54 +1,5 @@
-import { words_array } from "./words.js";
-
-console.log(words_array);
-
-let timeline = [];
-
-// Shuffle the full word array first to ensure randomness across all words
-shuffleArray(words_array);
-
-// Split the shuffled words into roughly equal groups
-const numGroups = 3;
-const groupSize = Math.ceil(words_array.length / numGroups);
-const wordGroups = Array.from({ length: numGroups }, (_, i) =>
-    words_array.slice(i * groupSize, (i + 1) * groupSize)
-);
-
-// Randomly select one group
-const chosenGroup = wordGroups[Math.floor(Math.random() * numGroups)];
-
-// Shuffle the selected group (extra randomization within the chosen group)
-shuffleArray(chosenGroup);
-// Ensure chosenGroup is an array of objects with the key "uni_lemma"
-chosenGroup.forEach(word => {
-    if (typeof word === 'string') {
-        word.uni_lemma = word; // Convert string to object with key "uni_lemma"
-    }
-});
-// Pick 3 arrays that contains 20 random words each from the selected group
-const selectedWords = chosenGroup.slice(0, 20);
-const selectedWords2 = chosenGroup.slice(20, 40);
-const selectedWords3 = chosenGroup.slice(40, 60);
-
-// Define the purple object (In Korean: "라벤더" )
-const purpleWord = { "theword": "purple" };
-// Add "purple" at a random position in selectedWords
-const randomIndex1 = Math.floor(Math.random() * (selectedWords.length + 1)); // +1 to allow insertion at the very end
-selectedWords.splice(randomIndex1, 0, purpleWord); // Insert "purple" at a random position
-
-// Define the grey object (In Korean: "회색")
-const greyWord = { "theword": "grey" };
-// Add "grey" at a random position in selectedWords2
-const randomIndex2 = Math.floor(Math.random() * (selectedWords2.length + 1)); // +1 to allow insertion at the very end
-selectedWords2.splice(randomIndex2, 0, greyWord); // Insert "grey" at a random position
-
-// Define the lavender object (In Korean: 라벤더)
-const lavenderWord = { "theword": "lavender" };
-// Add "lavender" at a random position in selectedWords3
-const randomIndex = Math.floor(Math.random() * (selectedWords3.length + 1)); // +1 to allow insertion at the very end
-selectedWords3.splice(randomIndex, 0, lavenderWord); // Insert "lavender" at a random position
-
-console.log(selectedWords);
+// ------------------------------------------------------------------------------------------
+// start translation from here: to Claire!
 // -----------------------------------------------------------------------------------------------------//
 const trial1 = {
     type: jsPsychInstructions,
@@ -144,7 +95,7 @@ const instructions_solidity1 = {
         type: jsPsychHtmlButtonResponse,
         stimulus: `
             <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.6;">
-                <p>Another judgment in this task is about <b>word solidity</b>.</p>
+                <p>One judgment in this task is about <b>word solidity</b>.</p>
                 <p>Consider the sentence:</p>
                 <p><b>"The rock is heavy."</b></p>
                 <p>In this sentence, <b>rock</b> refers to something <b>solid</b>. It maintains its shape and you can't pour it.</p>
@@ -175,7 +126,7 @@ const instructions_solidity3 = {
         type: jsPsychHtmlButtonResponse,
         stimulus: `
             <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.6;">
-                <p><b>Important:</b> ⚠️ If you see the word <b style="color: purple; background-color: lavender;">"Lavender"</b>, always select <u><b>"none of these"</b></u>.</p>
+                <p><b>Important:</b> ⚠️ If you see the word <b style="color: purple; background-color: paige;">"purple"</b>, always select <u><b>"solid"</b></u>.</p>
             </div>`,
         choices: ["Let's begin!"],
         button_html: '<button class="jspsych-btn" style="font-size: 18px; padding: 12px 24px; margin: 10px;">%choice%</button>'
@@ -285,7 +236,7 @@ const solidity = {
     ],
     randomization: false
 };
-//timeline.push(solidity);
+timeline.push(solidity);
 
 // -------------------------------------------------------------------------------------------
 // Instructions for countability task
@@ -689,7 +640,7 @@ const category = {
     randomization: false
 };
 
-//timeline.push(category);
+timeline.push(category);
 // ---------------------------------------------------------------------------------------------
 
 // goodbye message
@@ -722,6 +673,3 @@ const goodbye = {
 
 
 timeline.push(goodbye);
-// ---------------------------------------------------------------------------------------------
-
-jsPsych.run(timeline);
