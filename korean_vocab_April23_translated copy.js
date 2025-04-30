@@ -46,19 +46,19 @@ const selectedWords2 = chosenGroup.slice(2, 4);
 const selectedWords3 = chosenGroup.slice(4, 6);
 
 // Define the purple object (In Korean: "라벤더" )
-const purpleWord = { "theword": "purple" };
+const purpleWord = { "theword": "라벤더" };
 // Add "purple" at a random position in selectedWords
 const randomIndex1 = Math.floor(Math.random() * (selectedWords.length + 1)); // +1 to allow insertion at the very end
 selectedWords.splice(randomIndex1, 0, purpleWord); // Insert "purple" at a random position
 
 // Define the grey object (In Korean: "회색")
-const greyWord = { "theword": "grey" };
+const greyWord = { "theword": "회색" };
 // Add "grey" at a random position in selectedWords2
 const randomIndex2 = Math.floor(Math.random() * (selectedWords2.length + 1)); // +1 to allow insertion at the very end
 selectedWords2.splice(randomIndex2, 0, greyWord); // Insert "grey" at a random position
 
 // Define the lavender object (In Korean: 라벤더)
-const lavenderWord = { "theword": "lavender" };
+const lavenderWord = { "theword": "라벤더" };
 // Add "lavender" at a random position in selectedWords3
 const randomIndex = Math.floor(Math.random() * (selectedWords3.length + 1)); // +1 to allow insertion at the very end
 selectedWords3.splice(randomIndex, 0, lavenderWord); // Insert "lavender" at a random position
@@ -301,6 +301,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 // ------------------------------------------------------------------------------------------
 // start translation from here: to Claire!
 // -----------------------------------------------------------------------------------------------------//
+// ------------------------------------------------------------------------------------------
+// start translation from here: to Claire!
+// -----------------------------------------------------------------------------------------------------//
 const trial1 = {
     type: jsPsychInstructions,
     pages: [
@@ -427,7 +430,7 @@ const instructions_solidity3 = {
         type: jsPsychHtmlButtonResponse,
         stimulus: `
             <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.6;">
-                <p><b>Important:</b> ⚠️ If you see the word <b style="color: purple; background-color: paige;">"purple"</b>, always select <u><b>"solid"</b></u>.</p>
+                <p><b>중요:</b> ⚠️ <b style="color: purple; background-color: paige;">"라벤더"</b> 단어가 보이면 항상 <u><b>"고형물"</b></u>을 선택하세요.</p>
             </div>`,
         choices: ["시작!"],
         button_html: '<button class="jspsych-btn" style="font-size: 18px; padding: 12px 24px; margin: 10px;">%choice%</button>'
@@ -499,7 +502,7 @@ const block_solidity = {
                         let word = jsPsych.timelineVariable('uni_lemma');
                         word = word.replace(/[*\n\r\t\u200b]/g, '').trim();
                         return `<div style="font-size: 22px; text-align: center; max-width: 700px; margin: auto; font-weight: normal; display: inline-block;">
-                                    Is <b>${word}</b>:
+                                    <b>${word}</b>는:
                                 </div>`;
                     },
                     options: ['고형물', '비고형물', '해당 사항 없음'],
@@ -577,7 +580,7 @@ const instructions_countmass3 = {
         type: jsPsychHtmlButtonResponse,
         stimulus: `
             <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.6;">
-                <p><b>Important:</b> ⚠️ If you see the word <b style="color: grey;">"Grey"</b>, always select <u><b>"count noun"</b></u>.</p>
+                <p><b>중요:</b> ⚠️ <b style="color: grey;">"회색"</b>이라는 단어가 나오면 항상 <u><b>"가산명사"</b></u>를 선택하세요.</p>
             </div>`,
         choices: ["시작!"],
         button_html: '<button class="jspsych-btn" style="font-size: 18px; padding: 12px 24px; margin: 10px;">%choice%</button>'
@@ -649,7 +652,7 @@ const block_countmass = {
                         let word = jsPsych.timelineVariable('uni_lemma');
                         word = word.replace(/[*\n\r\t\u200b]/g, '').trim();
                         return `<div style="font-size: 22px; text-align: center; max-width: 700px; margin: auto; font-weight: normal; display: inline-block;">
-                                    Is <b>${word}</b>:
+                                    <b>${word}</b>는:
                                 </div>`;
                     },
                     options: ['셀 수 있다', '셀 수 없다', '잘 모르겠다/구분이 어렵다'],

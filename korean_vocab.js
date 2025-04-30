@@ -25,13 +25,13 @@ const chosenGroup = wordGroups[Math.floor(Math.random() * numGroups)];
 // Shuffle the selected group (extra randomization within the chosen group)
 shuffleArray(chosenGroup);
 //Modify how we prepare the word objects
-chosenGroup.forEach(word => {
-    if (typeof word === 'string') {
-        word = { uni_lemma: word }; // Create proper object structure
-    } else if (word.theword) {
-        word.uni_lemma = word.theword; // Map theword to uni_lemma
-    }
-});
+// chosenGroup.forEach(word => {
+//     if (typeof word === 'string') {
+//         word = { uni_lemma: word }; // Create proper object structure
+//     } else if (word.theword) {
+//         word.uni_lemma = word.theword; // Map theword to uni_lemma
+//     }
+// });
 
 console.log("chosenGroup");
 console.log(chosenGroup);
@@ -309,17 +309,16 @@ const trial1 = {
             <img src="stanford.png" style="max-width: 250px; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);">
         </div>
         <div style="text-align: center; max-width: 650px; margin: auto; font-size: 20px; line-height: 1.6; color: #333;">
-            <p><strong>스탠퍼드 대학교 심리학부y</strong>의 인지과학연구의 관한 설문조사에 참여해주셔서 감사합니다.</p>
-            <p>이 연구에 대한 질문이 있으시면 <a href="mailto:languagecoglab@gmail.com" style="color: #0073e6; font-weight: bold;">languagecoglab@gmail.com</a>으로 문의해 주시길 바랍니다.</p>
-            <p><strong> 연구에 참여하기 위해 만 18세 이상이어야 합니다.</strong> 본 설문조사에 참여하는 것은
-자발적이며 언제든지 자유롭게 참여를 철회할 수 있습니다.</p>
-            <p>귀하의 답변은 <strong>익명</strong>으로 처리됩니다. 시작하시려면 "다음" 버튼을 눌러주세요.</p>
+            <p>Welcome to our study conducted by cognitive scientists at the <strong>Stanford Department of Psychology</strong>.</p>
+            <p>If you have any questions, feel free to reach us at <a href="mailto:languagecoglab@gmail.com" style="color: #0073e6; font-weight: bold;">languagecoglab@gmail.com</a>.</p>
+            <p><strong>You must be at least 18 years old to participate.</strong> Your participation is voluntary, and you may withdraw at any time.</p>
+            <p>Your responses will remain <strong>completely anonymous</strong>. Click "Next" to begin.</p>
         </div>
         `
     ],
     show_clickable_nav: true,
-    button_label_next: "시작",
-    button_label_previous: "뒤로",
+    button_label_next: "Start",
+    button_label_previous: "Back",
     button_html: '<button class="jspsych-btn" style="font-size: 20px; padding: 12px 24px; margin: 10px; background-color: #0073e6; color: white; border-radius: 8px; border: none; transition: 0.3s;">%choice%</button>',
 };
 
@@ -331,19 +330,19 @@ const opening = {
     pages: [
         `
         <div style="text-align: center; margin-top: 50px;">
-        <h2 style="font-size: 28px; color: #222;">참여해주셔서 감사합니다!</h2>
+        <h2 style="font-size: 28px; color: #222;">Welcome to the Experiment</h2>
     </div>
     <div style="text-align: center; max-width: 650px; margin: auto; font-size: 20px; line-height: 1.6; color: #333;">
-        <p>각 단계마다 단어가 제시됩니다.</p>
-        <p>귀하는 제시된 지침에 따라 다음 단어들에 대한 판단을 내려주시기 됩니다.</p>
-        <p>✨ 귀하의 직관을 따라 🧠💡 단어를 일상생활에서 어떻게 사용할지 생각하면서 판단해주시기 바랍니다.</p>
-        <p> 시작하시려면 <strong>"다음"</strong> 버튼을 눌러주세요</p>
+        <p>In this experiment, you will be shown some words.</p>
+        <p>Your task is to make a judgment about each word based on the instructions provided.</p>
+        <p>✨ Trust your intuition 🧠💡 and think about how you would use the word in everyday life when making your judgment.</p>
+        <p>Click <strong>"Next"</strong> to begin.</p>
     </div>    
         `
     ],
     show_clickable_nav: true,
-    button_label_next: "다음",
-    button_label_previous: "뒤로",
+    button_label_next: "Next",
+    button_label_previous: "Back",
     button_html: '<button class="jspsych-btn" style="font-size: 20px; padding: 12px 24px; margin: 10px; background-color: #0073e6; color: white; border-radius: 8px; border: none; transition: 0.3s;">%choice%</button>',
     on_finish: function (data) {
         // Increment current trial number
@@ -366,12 +365,12 @@ const after_practice = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `
         <div style="text-align: center; font-size: 24px; margin: 20px;">
-            <p><strong>잘했습니다!</strong></p>
-            <p>예시 문제를 모두 완료하셨습니다. 이제 본 연구조사로 넘어가겠습니다.</p>
-            <p>집중하시고 최선을 다하면서 재밌게 하시기 바랍니다!</p>
+            <p><strong>Great job!</strong></p>
+            <p>You've completed the examples. Now, let's move on to the actual task.</p>
+            <p>Stay focused, do your best, and have fun!</p>
         </div>
     `,
-    choices: ["다음"],
+    choices: ["Next"],
     button_html: '<button class="jspsych-btn" style="font-size: 20px; padding: 12px 24px; margin: 20px; background-color: #0073e6; color: white; border-radius: 8px; border: none;">%choice%</button>'
 };
 
@@ -379,12 +378,12 @@ const before_practice = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `
         <div style="text-align: center; font-size: 24px; margin: 20px;">
-            <p><strong>시작하기 전에...</strong></p>
-            <p>예시 문제로 연습하겠습니다.</p>
-            <p>본 조사에 어떤 문제가 나오는지 예습이 될것입니다.</p>
+            <p><strong>Before we begin...</strong></p>
+            <p>Let's go through some examples to help you understand the task.</p>
+            <p>These will guide you through what to expect.</p>
         </div>
     `,
-    choices: ["다음"],
+    choices: ["Next"],
     button_html: '<button class="jspsych-btn" style="font-size: 18px; padding: 10px 20px; margin-top: 10px;">%choice%</button>'
 };
 
@@ -396,13 +395,13 @@ const instructions_solidity1 = {
         type: jsPsychHtmlButtonResponse,
         stimulus: `
             <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.6;">
-                <p>이번 판단 기준은 해당 단어가 <b>고형물인지 비고형물인지</b> 판단하게 될것입니다.</p>
-                <p>예를 들어, 다음 문장을 읽어주세요:</p>
-                <p><b>"이 바위는 무겁다."</b></p>
-                <p>이 문장에서 <b>바위</b> 는 <b>고형물</b>입니다. 바의는 항상 모양을 유지하고 엑체같이 따르거나 부을 수 없습니다. </p>
+                <p>One judgment in this task is about <b>word solidity</b>.</p>
+                <p>Consider the sentence:</p>
+                <p><b>"The rock is heavy."</b></p>
+                <p>In this sentence, <b>rock</b> refers to something <b>solid</b>. It maintains its shape and you can't pour it.</p>
                 <p style="margin-top: 20px; font-weight: bold;"> </p>
             </div>`,
-        choices: ['다음'],
+        choices: ['Continue'],
         button_html: '<button class="jspsych-btn" style="font-size: 20px; padding: 12px 24px; margin: 10px;">%choice%</button>'
     }]
 };
@@ -412,12 +411,12 @@ const instructions_solidity2 = {
         type: jsPsychHtmlButtonResponse,
         stimulus: `
             <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.6;">
-                <p>다음 문장을 읽어주세요:</p>
-                <p><b>"물이 쏟아졌습니다."</b></p>
-                <p>이 문장에서 <b>물</b> 은 <b>비고형물</b>입니다. 물은 용기의 모양을 취하며 따르거나 부을 수 있습니다.</p>
-                <p style="margin-top: 20px;">몇가지 예문을 보며 연습해 보겠습니다!</p>
+                <p>Now, consider the sentence:</p>
+                <p><b>"The water spilled."</b></p>
+                <p>In this sentence, <b>water</b> refers to something <b>non-solid</b>. It takes the shape of its container and you can pour it.</p>
+                <p style="margin-top: 20px;">Let's practice with some examples!</p>
             </div>`,
-        choices: ['다음'],
+        choices: ['Continue'],
         button_html: '<button class="jspsych-btn" style="font-size: 20px; padding: 12px 24px; margin: 10px;">%choice%</button>'
     }]
 };
@@ -429,7 +428,7 @@ const instructions_solidity3 = {
             <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.6;">
                 <p><b>Important:</b> ⚠️ If you see the word <b style="color: purple; background-color: paige;">"purple"</b>, always select <u><b>"solid"</b></u>.</p>
             </div>`,
-        choices: ["시작!"],
+        choices: ["Let's begin!"],
         button_html: '<button class="jspsych-btn" style="font-size: 18px; padding: 12px 24px; margin: 10px;">%choice%</button>'
     }]
 };
@@ -443,7 +442,7 @@ const generatePracticeSolidityTrial = (prompt, correctAnswer, feedbackCorrect, f
                 questions: [
                     {
                         prompt: `<div style="font-size: 20px; text-align: center; max-width: 700px; margin: auto; font-weight: normal; display: inline-block;">${prompt}</div>`,
-                        options: ['고형물', '비고형물', '해당 사항 없음'],
+                        options: ['solid', 'non-solid', 'none of these'],
                         required: true,
                     }
                 ],
@@ -459,11 +458,11 @@ const generatePracticeSolidityTrial = (prompt, correctAnswer, feedbackCorrect, f
                         <div style="text-align: center; font-size: 22px; max-width: 700px; margin: auto; padding: 20px; 
                                     border-radius: 10px; background-color: ${isCorrect ? '#d4edda' : '#f8d7da'}; 
                                     color: ${isCorrect ? '#155724' : '#721c24'};">
-                            <p><b>${isCorrect ? '맞습니다!' : '틀렸습니다!'}</b></p>
+                            <p><b>${isCorrect ? 'Correct!' : 'Incorrect!'}</b></p>
                             <p>${isCorrect ? feedbackCorrect : feedbackIncorrect}</p>
                         </div>`;
                 },
-                choices: ['다음'],
+                choices: ['Continue'],
                 button_html: '<button class="jspsych-btn" style="font-size: 18px; padding: 10px 20px; margin-top: 10px;">%choice%</button>'
             }
         ],
@@ -473,19 +472,19 @@ const generatePracticeSolidityTrial = (prompt, correctAnswer, feedbackCorrect, f
 
 // Define practice trials
 const practice_solidity1 = generatePracticeSolidityTrial(
-    `다음 문장을 읽어주세요 <b>[이 책상은 튼튼합니다]</b>. 이 문장에서 <b>책상</b>은:`,
-    "고형물",
-    "맞습니다! 책상은 고형물입니다 - 항상 모양을 유지하고 엑체같이 따르거나 부을 수 없습니다.",
-    "책상은 고형물입니다 - 항상 모양을 유지하고 엑체같이 따르거나 부을 수 없습니다. 계속 진행하겠습니다!",
-    "책상"
+    `In the sentence <b>[The table is sturdy]</b>, is <b>table</b>:`,
+    "solid",
+    "Yes! A table is solid - it maintains its shape and cannot be poured.",
+    "A table is solid - it maintains its shape and cannot be poured. Let's continue!",
+    "table"
 );
 
 const practice_solidity2 = generatePracticeSolidityTrial(
-    `다음 문장을 읽어주세요 <b>[우유가 쏟아졌습니다]</b>. 이 문장에서 <b>우유</b>는:`,
-    "비고형물",
-    "맞습니다! 우유는 비고형물입니다 - 용기의 모양을 취하며 따르거나 부을 수 있습니다.",
-    "우유는 비고형물입니다 - 용기의 모양을 취하며 따르거나 부을 수 있습니다. 계속 진행하겠습니다!",
-    "우유"
+    `In the sentence <b>[The milk spilled]</b>, is <b>milk</b>:`,
+    "non-solid",
+    "Correct! Milk is non-solid - it takes the shape of its container and can be poured.",
+    "Milk is non-solid - it takes the shape of its container and can be poured. Let's continue!",
+    "milk"
 );
 
 // Main block
@@ -502,7 +501,7 @@ const block_solidity = {
                                     Is <b>${word}</b>:
                                 </div>`;
                     },
-                    options: ['고형물', '비고형물', '해당 사항 없음'],
+                    options: ['solid', 'non-solid', 'none of these'],
                     required: true,
                     required_message: ""
                 }
@@ -547,12 +546,12 @@ const instructions_countmass1 = {
         type: jsPsychHtmlButtonResponse,
         stimulus: `
             <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.6;">
-                <p>이번 판단 기준은 해당 단어가 <b>셀 수 있는지 없는지</b>를 판단하게 될것입니다.</p>
-                <p>다음 문장을 읽어주세요:</p>
-                <p><b>"나는 펜이 여러 개 필요해."</b></p>
-                <p>이 문장에서 <b>펜</b> 은 <b>셀 수 있습니다</b> <b>분명한 단위별로 나누어 셀 수 있기 때문입니다</b>.</p>
+                <p>One judgment in this task is about <b>count and mass nouns</b>.</p>
+                <p>Consider the sentence:</p>
+                <p><b>"I need several pens."</b></p>
+                <p>Here, <b>pen</b> is a <b>count noun</b> because it refers to objects that can be <b>divided into individual units and counted</b>.</p>
             </div>`,
-        choices: ['다음'],
+        choices: ['Continue'],
         button_html: '<button class="jspsych-btn" style="font-size: 20px; padding: 12px 24px; margin: 10px;">%choice%</button>'
     }]
 };
@@ -562,12 +561,12 @@ const instructions_countmass2 = {
         type: jsPsychHtmlButtonResponse,
         stimulus: `
             <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.6;">
-                <p>다음 문장을 읽어주세요:</p>
-                <p><b>"나는 물을 조금 마시고 싶어."</b></p>
-                <p>이 문장에서 <b>물</b> 은 <b>셀 수 없습니다</b>  <b>분명한 단위별로 나누어 셀 수 없기 때문입니다</b>.</p>
-                <p style="margin-top: 20px;">몇가지 예문을 보며 연습해 보겠습니다!</p>
+                <p>Now, consider the sentence:</p>
+                <p><b>"I need some water."</b></p>
+                <p>Here, <b>water</b> is a <b>mass noun</b> because it refers to an <b>undifferentiated and uncountable substance</b>.</p>
+                <p style="margin-top: 20px;">Let's practice with some examples!</p>
             </div>`,
-        choices: ['다음'],
+        choices: ['Continue'],
         button_html: '<button class="jspsych-btn" style="font-size: 20px; padding: 12px 24px; margin: 10px;">%choice%</button>'
     }]
 };
@@ -579,7 +578,7 @@ const instructions_countmass3 = {
             <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.6;">
                 <p><b>Important:</b> ⚠️ If you see the word <b style="color: grey;">"Grey"</b>, always select <u><b>"count noun"</b></u>.</p>
             </div>`,
-        choices: ["시작!"],
+        choices: ["Let's begin!"],
         button_html: '<button class="jspsych-btn" style="font-size: 18px; padding: 12px 24px; margin: 10px;">%choice%</button>'
     }]
 };
@@ -593,7 +592,7 @@ const generatePracticeCountMassTrial = (prompt, correctAnswer, feedbackCorrect, 
                 questions: [
                     {
                         prompt: `<div style="font-size: 20px; text-align: center; max-width: 700px; margin: auto; font-weight: normal; display: inline-block;">${prompt}</div>`,
-                        options: ['셀 수 있다', '셀 수 없다', '잘 모르겠다/구분이 어렵다'],
+                        options: ['count noun', 'mass noun', 'unclear/unknown'],
                         required: true,
                     }
                 ],
@@ -609,11 +608,11 @@ const generatePracticeCountMassTrial = (prompt, correctAnswer, feedbackCorrect, 
                         <div style="text-align: center; font-size: 22px; max-width: 700px; margin: auto; padding: 20px; 
                                     border-radius: 10px; background-color: ${isCorrect ? '#d4edda' : '#f8d7da'}; 
                                     color: ${isCorrect ? '#155724' : '#721c24'};">
-                            <p><b>${isCorrect ? '맞습니다!' : '틀렸습니다!'}</b></p>
+                            <p><b>${isCorrect ? 'Correct!' : 'Incorrect!'}</b></p>
                             <p>${isCorrect ? feedbackCorrect : feedbackIncorrect}</p>
                         </div>`;
                 },
-                choices: ['다음'],
+                choices: ['Continue'],
                 button_html: '<button class="jspsych-btn" style="font-size: 18px; padding: 10px 20px; margin-top: 10px;">%choice%</button>'
             }
         ],
@@ -623,19 +622,19 @@ const generatePracticeCountMassTrial = (prompt, correctAnswer, feedbackCorrect, 
 
 // Define practice trials
 const practice_countmass1 = generatePracticeCountMassTrial(
-    `다음 문장을 읽어주세요: <b>[의자에 앉으시겠습니까?]</b> 이 문장에서 <b>의자</b>는:`,
-    "셀 수 있습니다",
-    "맞습니다! 의자는 셀 수 있습니다 - 의자는 개별로 셀 수 있기 때문입니다.",
-    "의자는 셀 수 있습니다 - 의자는 개별로 셀 수 있기 때문입니다. 계속 진행하겠습니다!",
-    "의자"
+    `In the sentence <b>[Would you like a chair?]</b>, is <b>chair</b>:`,
+    "count noun",
+    "Yes! A chair is a count noun - you can count individual chairs.",
+    "A chair is a count noun - you can count individual chairs. Let's continue!",
+    "chair"
 );
 
 const practice_countmass2 = generatePracticeCountMassTrial(
-    `다음 문장을 읽어주세요: <b>[설탕이 너무 많아]</b> 이 문장에서 <b>설탕</b>은:`,
-    "셀 수 없습니다",
-    "맞습니다! 설탕은 셀 수 없습니다 - 설탕은 개별로 셀 수 없는 물질이기 때문입니다.",
-    "설탕은 셀 수 없습니다 - 설탕은 개별로 셀 수 없는 물질이기 때문입니다. 계속 진행하겠습니다!",
-    "설탕"
+    `In the sentence <b>[This is so much sugar]</b>, is <b>sugar</b>:`,
+    "mass noun",
+    "Correct! Sugar is a mass noun - it's an undifferentiated substance.",
+    "Sugar is a mass noun - it's an undifferentiated substance. Let's continue!",
+    "sugar"
 );
 
 // Main block
@@ -652,7 +651,7 @@ const block_countmass = {
                                     Is <b>${word}</b>:
                                 </div>`;
                     },
-                    options: ['셀 수 있다', '셀 수 없다', '잘 모르겠다/구분이 어렵다'],
+                    options: ['count noun', 'mass noun', 'unclear/unknown'],
                     required: true,
                     required_message: ""
                 }
@@ -696,17 +695,17 @@ const instructions_category1 = {
             type: jsPsychHtmlButtonResponse,
             stimulus: `
             <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.6;">
-                <p>이번 판단 기준은 해당 단어가 <b>어떤 기준으로 분류 할 수 있는지</b>를 판단하게 될것입니다.</p>
+                <p>One judgment in this task is about <b>word category</b>.</p>
         
-                <p>다음 문장을 읽어주세요:</p>
-                <p><b>"접시를 여러게 쌓았습니다."</b></p>
+                <p>Consider the sentence:</p>
+                <p><b>"I stacked several plates."</b></p>
         
-                <p>이 문장에서 <b>접시</b> 는 <b>형태</b>의 기준으로 분류 할 수 있습니다. 접시는 여러 물질 (플라스틱, 세라믹, 유리)과 다양한 색상으로 만들 수 있지만, 접시는 항상 비슷한 형태를 가지고 있기 때문입니다.</p>
+                <p>In this sentence, <b>plate</b> belongs to a <b>category that is organized by shape</b>. Plates can be made of different materials (plastic, ceramic, glass) and come in various colors, <u>but</u> they all have a similar shape.</p>
         
                 <p style="margin-top: 20px; font-weight: bold;"> </p>
             </div>        
             `,
-            choices: ['다음'],
+            choices: ['Continue'],
             button_html: '<button class="jspsych-btn" style="font-size: 20px; padding: 12px 24px; margin: 10px;">%choice%</button>'
         }
     ]
@@ -719,7 +718,7 @@ const instructions_category2 = {
             stimulus: `
             <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.4;">
                 
-                <p style="margin-bottom: 10px;">예를 들어, 이것은 접시입니다:</p>
+                <p style="margin-bottom: 10px;">For example, this is a plate:</p>
                 
                 <div style="display: flex; justify-content: center; margin: 10px 0;">
                     <img src="images/steel_plate.jpg" alt="Steel plate" style="width: 120px; height: auto; border: 2px solid black; padding: 3px;">
@@ -727,20 +726,20 @@ const instructions_category2 = {
                 
                 <div style="display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-top: 15px;">
                     <div style="width: 45%;">
-                        <p>만들어진 물질이 다르지만, 그럼에도 불구하고 다 접시입니다:</p>
+                        <p>Even though this is made of a different material, it is still a plate:</p>
                         <img src="images/ceramic_plate.jpg" alt="Ceramic plate" style="width: 100px; height: auto;">
                     </div>
 
                     <div style="width: 45%;">
-                        <p>만들어진 물질이 똑같지만, 이것은 접시가 <b>아닙니다</b>:</p>
+                        <p>Even though this is made of the same material, it is <b>NOT</b> a plate:</p>
                         <img src="images/steel_cup.jpg" alt="Steel cup" style="width: 100px; height: auto;">
                     </div>
                 </div>
 
-                <p style="margin-top: 20px; font-weight: bold;">계속 진행하겠습니다!</p>
+                <p style="margin-top: 20px; font-weight: bold;">Let’s move forward!</p>
             </div>        
             `,
-            choices: ['다음'],
+            choices: ['Continue'],
             button_html: '<button class="jspsych-btn" style="font-size: 20px; padding: 12px 24px; margin: 10px;">%choice%</button>'
         }
     ]
@@ -753,31 +752,31 @@ const instructions_category3 = {
             stimulus: `
             <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.4;">
                 
-                <p style="margin-bottom: 10px;">다음 문장을 읽어주세요:<p>
-                <p><b>"모래를 조금 흘렸어."</b></p>
+                <p style="margin-bottom: 10px;">Now, think about the sentence:<p>
+                <p><b>"I spilled some sand."</b></p>
                 
                 <div style="display: flex; justify-content: center; margin: 10px 0;">
                     <img src="images/sand_pile.jpg" alt="Pile of sand" style="width: 130px; height: auto; border: 2px solid black; padding: 3px;">
                 </div>
                 
-                <p>모래는 여러 색상과 다양한 형태를 가질 수 있지만,물질은 항상 똑같습니다.</p>
+                <p>Sand can come in different colors and shapes, but it is always made of sand.</p>
 
                 <div style="display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-top: 15px;">
                     <div style="width: 45%;">
-                        <p>겉모습은 달라도 이것은 모래입니다:</p>
+                        <p>This is still sand, even though it looks different:</p>
                         <img src="images/white_pile.jpg" alt="White sand" style="width: 120px; height: auto;">
                     </div>
 
                     <div style="width: 45%;">
-                        <p>겉모습이 비슷해도 이것은 모래가 <b>아닙니다</b>:</p>
+                        <p>This is <b>NOT</b> sand, even though it looks similar:</p>
                         <img src="images/leaves_pile.jpg" alt="Sugar granules" style="width: 150px; height: auto;">
                     </div>
                 </div>
 
-                <p style="margin-top: 20px; font-weight: bold;">⏭️ 다음 단어들을 어떤 기준으로 분류할 수 있는지 판단해주시기 바랍니다.</p>
+                <p style="margin-top: 20px; font-weight: bold;">⏭️ Next, we’d like you to judge how other words are organized.</p>
             </div>        
             `,
-            choices: ['다음'],
+            choices: ['Continue'],
             button_html: '<button class="jspsych-btn" style="font-size: 20px; padding: 12px 24px; margin: 10px;">%choice%</button>'
         }
     ]
@@ -791,10 +790,10 @@ const instructions_category4 = {
             stimulus: `
             <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.6;">
 
-            <p><b>Important:</b> ⚠️ <b style="color: purple; background-color: lavender;">"라벤더"</b>라는 단어가 나오면, <u><b>"해당 사항 없음"</b></u>을 눌러주세요.</p>
+            <p><b>Important:</b> ⚠️ If you see the word <b style="color: purple; background-color: lavender;">"Lavender"</b>, always select <u><b>"none of these"</b></u>.</p>
 
             </div>`,
-            choices: ["시작!"],
+            choices: ["Let's begin!"],
             button_html: '<button class="jspsych-btn" style="font-size: 18px; padding: 12px 24px; margin: 10px;">%choice%</button>'
         }
     ]
@@ -810,7 +809,7 @@ const generatePracticeCategoryTrial = (prompt, correctAnswer, feedbackCorrect, f
                 questions: [
                     {
                         prompt: `<div style="font-size: 20px; text-align: center; max-width: 700px; margin: auto; font-weight: normal; display: inline-block;">${prompt}</div>`,
-                        options: ['형태', '물질', '식상', '해당 사항 없음'],
+                        options: ['shape', 'material', 'color', 'none of these'],
                         required: true,
                     }
                 ],
@@ -829,12 +828,12 @@ const generatePracticeCategoryTrial = (prompt, correctAnswer, feedbackCorrect, f
                         <div style="text-align: center; font-size: 22px; max-width: 700px; margin: auto; padding: 20px; 
                                     border-radius: 10px; background-color: ${isCorrect ? '#d4edda' : '#f8d7da'}; 
                                     color: ${isCorrect ? '#155724' : '#721c24'};">
-                            <p><b>${isCorrect ? '맞습니다!' : '틀렸습니다!'}</b></p>
+                            <p><b>${isCorrect ? 'Correct!' : 'Incorrect!'}</b></p>
                             <p>${isCorrect ? feedbackCorrect : feedbackIncorrect}</p>
                         </div>
                     `;
                 },
-                choices: ['다음'],
+                choices: ['Continue'],
                 button_html: '<button class="jspsych-btn" style="font-size: 18px; padding: 10px 20px; margin-top: 10px;">%choice%</button>'
             }
         ],
@@ -845,43 +844,43 @@ const generatePracticeCategoryTrial = (prompt, correctAnswer, feedbackCorrect, f
 // Define the two practice category trials
 const practice_category1 = generatePracticeCategoryTrial(
     `<div style="font-size: 20px; text-align: center; max-width: 700px; margin: auto;">
-    다음 문장을 읽어주세요 <span style="font-weight: bold;">[이것은 정사각형입니다]</span>, 
-    <span style="font-weight: bold;">정사각형</span> 은 어느 기준으로 분류할 수 있다고 생각합니까?:
+    In the sentence <span style="font-weight: bold;">[This is a square]</span>, 
+    the category of <span style="font-weight: bold;">squares</span> is organized by:
     </div>`,
-    "형태",
-    "모든 정사각형은 같은 형태를 가지고 있습니다. 형태가 다르다면, 더 이상 정사각형이 아닙니다. 계속 진행하겠습니다!",
-    "모든 정사각형은 같은 형태를 가지고 있습니다. 물질과 색상은 다를 수 있으나, 형태가 다르다면, 더 이상 정사각형이 아닙니다. 계속 진행하겠습니다!",
-    "정사각형"
+    "shape",
+    "All squares have the same kind of shape, and if they have a different shape, then they are not squares. Now let's go forward!",
+    "All squares have the same kind of shape. Squares can have different materials and colors,<u>but</u> if they have a different shape, then they are not squares. Let's go forward!",
+    "square"
 );
 
 const practice_category2 = generatePracticeCategoryTrial(
     `<div style="font-size: 20px; text-align: center; max-width: 700px; margin: auto;">
-    다음 문장을 읽어주세요 <b>[신호등에 빨간불이 보여서 그녀는 차를 멈췄다]</b>, 이 문장에서 <b>빨간불</b> 은 어느 기준으로 분류할 수 있다고 생각합니까?:
+    In the sentence <b>[She stopped the car at the red light]</b>, <b>red light</b> belongs to a category that is organized by:
     </div>`,
-    "색상",
-    "모든 빨간불은 빨간 색상을 가지고 있습니다. 색상이 빨간색이 아니면, 차를 멈출 필요가 없습니다. 계속 진행하겠습니다!",
-    "모든 빨간불은 빨간 색상을 가지고 있습니다. 물질과 형태는 다를 수 있으나, 색상이 다르다면, 차를 멈출 필요가 없습니다. 계속 진행하겠습니다!",
-    "빨간불"
+    "color",
+    "All red lights are red. If they have a different color, then they don’t mean that you have to stop your car. Now let's go forward!",
+    "All red lights are red. They can different shapes and materials, <u>but</u> if they have a different color, then they don’t mean that you have to stop your car. Let's go forward!",
+    "red"
 );
 
 const practice_category3 = generatePracticeCategoryTrial(
     `<div style="font-size: 20px; text-align: center; max-width: 700px; margin: auto;">
-    다음 문장을 읽어주세요 <b>[그녀는 음식을 가장 비싼 도자기에 넣었습니다]</b>, 이 문장에서 <b>도자기</b> 는 어느 기준으로 분류할 수 있다고 생각합니까?:
+    In the sentence <b>[She put the food in her nicest pottery]</b>, <b>pottery</b> belongs to a category that is organized by:
     </div>`,
-    "물질",
-    "모든 도자기는 점토로 만들어져 있습니다. 물질이 유리나 나무나 쇠였더라면, 도자기가 아닙니다. 계속 진행하겠습니다!",
-    "모든 도자기는 점토로 만들어져 있습니다. 형태나 색상은 다를 수 있으나, 물질이 유리나 나무나 쇠였더라면, 도자기가 아닙니다. 계속 진행하겠습니다!",
-    "도자기"
+    "material",
+    "All pottery is made out of clay. If it’s made out of wood or glass or metal, it’s not pottery. Now let's go forward!",
+    "All pottery is made out of clay. It can have different shapes and colors, <u>but</u> if it’s made out of wood or glass or metal, it’s not pottery. Let's go forward!",
+    "pottery"
 );
 
 const practice_category4 = generatePracticeCategoryTrial(
     `<div style="font-size: 20px; text-align: center; max-width: 700px; margin: auto;">
-    다음 문장을 읽어주세요 <b>[그녀는 불안감을 느낍니다]</b>, 이 문장에서 <b>불안감</b> 은 어느 기준으로 분류할 수 있다고 생각합니까?:
+    In the sentence <b>[She feels happiness]</b>, <b>happiness</b> belongs to a category that is organized by:
     </div>`,
-    "해당 사항 없음",
-    "불안감은 형태, 색상, 또는 물질이라는 기준으로 분류 할 수 없습니다. 계속 진행하겠습니다!",
-    "불안감은 형태, 색상, 또는 물질이라는 기준으로 분류 할 수 없습니다. 계속 진행하겠습니다!",
-    "불안감"
+    "none of these",
+    "Happiness is not a category that is organized by shape, neither color, nor material. Now let's go forward!",
+    "Happiness is not a category that is organized by shape, neither color, nor material. Let's go forward!",
+    "happiness"
 );
 
 // Define the main category trials
@@ -900,7 +899,7 @@ const block_category = {
                                     <b>${jsPsych.timelineVariable('uni_lemma')}</b> belongs to a category that is organized by:
                                 </div>`;
                     },
-                    options: ['형태', '색상', '물질', '해당 사항 없음'],
+                    options: ['shape', 'color', 'material', 'none of these'],
                     required: true,
                     required_message: "", // <== This removes the *
                     add_other_option: true,
@@ -954,19 +953,19 @@ const goodbye = {
                 // ✅ Combined transition + goodbye message
                 return `
                     <div style="text-align: center; max-width: 700px; margin: auto; font-size: 22px; line-height: 1.6; color: #333;">
-                        <p><strong>조사를 완료하기 위해서 "다음" 을 눌러주세요.</strong></p>
-                        <p>본 연구에 참여해주셔서 감사합니다!</p>
-                        <p>연구와 과학의 발전에 참여해주셔서 감사드립니다.</p>
-                        <p>귀하는 이제 재접속됩니다. 문의하실 사항이 있으시면  
-                        <a href="mailto:languagecoglab@gmail.com" style="color: #0073e6; font-weight: bold;">languagecoglab@gmail.com</a>으로 연락 부탁드립니다.</p>
-                        <p><em>좋은 하루 되세요!</em></p>
+                        <p><strong>Please click "Continue" to finish.</strong></p>
+                        <p>Thank you for your participation!</p>
+                        <p>We truly appreciate your time and effort in helping advance cognitive science research.</p>
+                        <p>You will now be redirected. If you have any questions, feel free to contact us at 
+                        <a href="mailto:languagecoglab@gmail.com" style="color: #0073e6; font-weight: bold;">languagecoglab@gmail.com</a>.</p>
+                        <p><em>Wishing you a great day!</em></p>
                         <div style="margin-top: 20px;">
                             <img src="stanford.png" style="max-width: 250px; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);">
                         </div>
                     </div>
                 `;
             },
-            choices: ['다음'],
+            choices: ['Continue'],
             button_html: '<button class="jspsych-btn" style="font-size: 20px; padding: 12px 24px; margin-top: 10px; background-color: #0073e6; color: white; border-radius: 8px; border: none;">%choice%</button>'
         }
     ]

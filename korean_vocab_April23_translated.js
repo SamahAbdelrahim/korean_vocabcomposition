@@ -46,19 +46,19 @@ const selectedWords2 = chosenGroup.slice(2, 4);
 const selectedWords3 = chosenGroup.slice(4, 6);
 
 // Define the purple object (In Korean: "라벤더" )
-const purpleWord = { "theword": "purple" };
+const purpleWord = { "theword": "라벤더" };
 // Add "purple" at a random position in selectedWords
 const randomIndex1 = Math.floor(Math.random() * (selectedWords.length + 1)); // +1 to allow insertion at the very end
 selectedWords.splice(randomIndex1, 0, purpleWord); // Insert "purple" at a random position
 
 // Define the grey object (In Korean: "회색")
-const greyWord = { "theword": "grey" };
+const greyWord = { "theword": "회색" };
 // Add "grey" at a random position in selectedWords2
 const randomIndex2 = Math.floor(Math.random() * (selectedWords2.length + 1)); // +1 to allow insertion at the very end
 selectedWords2.splice(randomIndex2, 0, greyWord); // Insert "grey" at a random position
 
 // Define the lavender object (In Korean: 라벤더)
-const lavenderWord = { "theword": "lavender" };
+const lavenderWord = { "theword": "라벤더" };
 // Add "lavender" at a random position in selectedWords3
 const randomIndex = Math.floor(Math.random() * (selectedWords3.length + 1)); // +1 to allow insertion at the very end
 selectedWords3.splice(randomIndex, 0, lavenderWord); // Insert "lavender" at a random position
@@ -298,6 +298,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 //const words_array = words.map(w => w.uni_lemma);
 
+// ------------------------------------------------------------------------------------------
+// start translation from here: to Claire!
+// -----------------------------------------------------------------------------------------------------//
 // ------------------------------------------------------------------------------------------
 // start translation from here: to Claire!
 // -----------------------------------------------------------------------------------------------------//
