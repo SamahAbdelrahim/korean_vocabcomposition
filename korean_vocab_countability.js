@@ -1,4 +1,3 @@
-
 // This code is part of the Korean Vocabulary Composition experiment.
 
 // Define the grey object (In Korean: "회색")
@@ -58,6 +57,10 @@ const instructions_countmass3 = {
 
 // Generate practice trials with feedback
 const generatePracticeCountMassTrial = (prompt, correctAnswer, feedbackCorrect, feedbackIncorrect, theword) => {
+    // Create array of options and shuffle it
+    const options = ['count noun', 'mass noun', 'unclear/unknown'];
+    const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+
     return {
         timeline: [
             {
@@ -65,7 +68,7 @@ const generatePracticeCountMassTrial = (prompt, correctAnswer, feedbackCorrect, 
                 questions: [
                     {
                         prompt: `<div style="font-size: 20px; text-align: center; max-width: 700px; margin: auto; font-weight: normal; display: inline-block;">${prompt}</div>`,
-                        options: ['count noun', 'mass noun', 'unclear/unknown'],
+                        options: shuffledOptions,
                         required: true,
                     }
                 ],

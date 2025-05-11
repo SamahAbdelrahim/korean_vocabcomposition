@@ -46,7 +46,7 @@ const selectedWords2 = chosenGroup.slice(2, 4);
 const selectedWords3 = chosenGroup.slice(4, 6);
 
 // Define the purple object (In Korean: "라벤더" )
-const purpleWord = { "theword": "라벤더" };
+const purpleWord = { "theword": "보라색" };
 // Add "purple" at a random position in selectedWords
 const randomIndex1 = Math.floor(Math.random() * (selectedWords.length + 1)); // +1 to allow insertion at the very end
 selectedWords.splice(randomIndex1, 0, purpleWord); // Insert "purple" at a random position
@@ -312,7 +312,7 @@ const trial1 = {
             <img src="stanford.png" style="max-width: 250px; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);">
         </div>
         <div style="text-align: center; max-width: 650px; margin: auto; font-size: 20px; line-height: 1.6; color: #333;">
-            <p><strong>스탠퍼드 대학교 심리학부y</strong>의 인지과학연구의 관한 설문조사에 참여해주셔서 감사합니다.</p>
+            <p><strong>스탠퍼드 대학교 심리학부</strong>의 인지과학연구의 관한 설문조사에 참여해주셔서 감사합니다.</p>
             <p>이 연구에 대한 질문이 있으시면 <a href="mailto:languagecoglab@gmail.com" style="color: #0073e6; font-weight: bold;">languagecoglab@gmail.com</a>으로 문의해 주시길 바랍니다.</p>
             <p><strong> 연구에 참여하기 위해 만 18세 이상이어야 합니다.</strong> 본 설문조사에 참여하는 것은
 자발적이며 언제든지 자유롭게 참여를 철회할 수 있습니다.</p>
@@ -370,7 +370,7 @@ const after_practice = {
     stimulus: `
         <div style="text-align: center; font-size: 24px; margin: 20px;">
             <p><strong>잘했습니다!</strong></p>
-            <p>예시 문제를 모두 완료하셨습니다. 이제 본 연구조사로 넘어가겠습니다.</p>
+            <p>예시 문제를 모두 완료하셨습니다. 이제 본 연구조사로 넘어가겠습니다.맞고 틀린 답은 없으니 어렵게 생각하시지 말고 직감을 믿으세요.</p>
             <p>집중하시고 최선을 다하면서 재밌게 하시기 바랍니다!</p>
         </div>
     `,
@@ -430,7 +430,7 @@ const instructions_solidity3 = {
         type: jsPsychHtmlButtonResponse,
         stimulus: `
             <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.6;">
-                <p><b>Important:</b> ⚠️ If you see the word <b style="color: purple; background-color: paige;">"purple"</b>, always select <u><b>"solid"</b></u>.</p>
+                <p><b>중요:</b> ⚠️ <b style="color: purple; background-color: paige;">"보라색"</b> 이라는 단어가 나오면, <u><b>"고형물"</b></u>을 선택해주세요.</p>
             </div>`,
         choices: ["시작!"],
         button_html: '<button class="jspsych-btn" style="font-size: 18px; padding: 12px 24px; margin: 10px;">%choice%</button>'
@@ -502,7 +502,7 @@ const block_solidity = {
                         let word = jsPsych.timelineVariable('uni_lemma');
                         word = word.replace(/[*\n\r\t\u200b]/g, '').trim();
                         return `<div style="font-size: 22px; text-align: center; max-width: 700px; margin: auto; font-weight: normal; display: inline-block;">
-                                    Is <b>${word}</b>:
+                                   <b>${word}</b>:
                                 </div>`;
                     },
                     options: ['고형물', '비고형물', '해당 사항 없음'],
@@ -540,7 +540,7 @@ const solidity = {
     ],
     randomization: false
 };
-timeline.push(solidity);
+//timeline.push(solidity);
 
 // -------------------------------------------------------------------------------------------
 // Instructions for countability task
@@ -580,7 +580,7 @@ const instructions_countmass3 = {
         type: jsPsychHtmlButtonResponse,
         stimulus: `
             <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.6;">
-                <p><b>Important:</b> ⚠️ If you see the word <b style="color: grey;">"Grey"</b>, always select <u><b>"count noun"</b></u>.</p>
+                <p><b>중요:</b> ⚠️ <b style="color: grey;">"회색"</b>이라는 단어가 나오면, <u><b>"셀 수 있다"</b></u>를 선택해주세요.</p>
             </div>`,
         choices: ["시작!"],
         button_html: '<button class="jspsych-btn" style="font-size: 18px; padding: 12px 24px; margin: 10px;">%choice%</button>'
@@ -652,7 +652,7 @@ const block_countmass = {
                         let word = jsPsych.timelineVariable('uni_lemma');
                         word = word.replace(/[*\n\r\t\u200b]/g, '').trim();
                         return `<div style="font-size: 22px; text-align: center; max-width: 700px; margin: auto; font-weight: normal; display: inline-block;">
-                                    Is <b>${word}</b>:
+                                    <b>${word}</b>:
                                 </div>`;
                     },
                     options: ['셀 수 있다', '셀 수 없다', '잘 모르겠다/구분이 어렵다'],
@@ -690,7 +690,7 @@ const countmass = {
     ],
     randomization: false
 };
-timeline.push(countmass);
+//timeline.push(countmass);
 // ------------------------------------------------------------------------------------------
 // category organization block
 const instructions_category1 = {
@@ -767,12 +767,12 @@ const instructions_category3 = {
 
                 <div style="display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-top: 15px;">
                     <div style="width: 45%;">
-                        <p>겉모습은 달라도 이것은 모래입니다:</p>
+                        <p>색상이 달라도 이것은 모래입니다:</p>
                         <img src="images/white_pile.jpg" alt="White sand" style="width: 120px; height: auto;">
                     </div>
 
                     <div style="width: 45%;">
-                        <p>겉모습이 비슷해도 이것은 모래가 <b>아닙니다</b>:</p>
+                        <p>형태와 색상이 비슷해도 이것은 모래가 <b>아닙니다</b>:</p>
                         <img src="images/leaves_pile.jpg" alt="Sugar granules" style="width: 150px; height: auto;">
                     </div>
                 </div>
@@ -794,7 +794,7 @@ const instructions_category4 = {
             stimulus: `
             <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.6;">
 
-            <p><b>Important:</b> ⚠️ <b style="color: purple; background-color: lavender;">"라벤더"</b>라는 단어가 나오면, <u><b>"해당 사항 없음"</b></u>을 눌러주세요.</p>
+            <p><b>중요:</b> ⚠️ <b style="color: purple; background-color: lavender;">"라벤더"</b>라는 단어가 나오면, <u><b>"해당 사항 없음"</b></u>을 선택해주세요.</p>
 
             </div>`,
             choices: ["시작!"],
@@ -804,8 +804,12 @@ const instructions_category4 = {
 };
 
 
+
 // Practice trial 1
 const generatePracticeCategoryTrial = (prompt, correctAnswer, feedbackCorrect, feedbackIncorrect, theword) => {
+    // Create array of options and shuffle it
+    const options = ['형태', '물질', '색상', '해당 사항 없음'];
+    const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
     return {
         timeline: [
             {
@@ -813,7 +817,7 @@ const generatePracticeCategoryTrial = (prompt, correctAnswer, feedbackCorrect, f
                 questions: [
                     {
                         prompt: `<div style="font-size: 20px; text-align: center; max-width: 700px; margin: auto; font-weight: normal; display: inline-block;">${prompt}</div>`,
-                        options: ['형태', '물질', '식상', '해당 사항 없음'],
+                        options: shuffledOptions,
                         required: true,
                     }
                 ],
@@ -900,7 +904,7 @@ const block_category = {
                         word = word.replace(/[*\n\r\t\u200b]/g, '').trim();
                         console.log(`Word after cleaning: "${word}"`);
                         return `<div style="font-size: 22px; text-align: center; max-width: 700px; margin: auto; font-weight: normal; display: inline-block;">
-                                    <b>${jsPsych.timelineVariable('uni_lemma')}</b> belongs to a category that is organized by:
+                                    <b>${jsPsych.timelineVariable('uni_lemma')}</b> 은/는 어느 기준으로 분류할 수 있다고 생각합니까?
                                 </div>`;
                     },
                     options: ['형태', '색상', '물질', '해당 사항 없음'],

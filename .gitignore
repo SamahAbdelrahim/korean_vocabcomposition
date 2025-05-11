@@ -1,9 +1,6 @@
-.gitignore
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
-
-howtofixnote.txt
-*.log
-*.tex
+mongo_auth.json
+howtofixnote.txt 

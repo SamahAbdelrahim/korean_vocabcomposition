@@ -41,9 +41,9 @@ console.log(chosenGroup);
 // const selectedWords = chosenGroup.slice(0, 20);
 // const selectedWords2 = chosenGroup.slice(20, 40);
 // const selectedWords3 = chosenGroup.slice(40, 60);
-const selectedWords = chosenGroup.slice(0, 2);
-const selectedWords2 = chosenGroup.slice(2, 4);
-const selectedWords3 = chosenGroup.slice(4, 6);
+const selectedWords = chosenGroup.slice(0, 20);
+const selectedWords2 = chosenGroup.slice(20, 40);
+const selectedWords3 = chosenGroup.slice(40, 60);
 
 // Define the purple object (In Korean: "라벤더" )
 const purpleWord = { "theword": "라벤더" };
@@ -270,7 +270,8 @@ var jsPsych = initJsPsych({
         Promise.all(all_trials.map(trial => logExpData(trial)))
             .then(() => {
                 console.log("All data logged, redirecting...");
-                //window.location.href = "https://app.prolific.com/submissions/complete?cc=C1O4GW39";
+                //window.location.href = "https://app.prolific.com/submissions/complete?cc=CTSBUGJR";
+                window.location.href = "https://app.prolific.com/submissions/complete?cc=C1AFY0AP";
             })
             .catch(error => {
                 console.error("Failed to log all data", error);
@@ -312,7 +313,7 @@ const trial1 = {
             <img src="stanford.png" style="max-width: 250px; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);">
         </div>
         <div style="text-align: center; max-width: 650px; margin: auto; font-size: 20px; line-height: 1.6; color: #333;">
-            <p><strong>스탠퍼드 대학교 심리학부y</strong>의 인지과학연구의 관한 설문조사에 참여해주셔서 감사합니다.</p>
+            <p><strong>스탠퍼드 대학교 심리학부</strong>의 인지과학연구의 관한 설문조사에 참여해주셔서 감사합니다.</p>
             <p>이 연구에 대한 질문이 있으시면 <a href="mailto:languagecoglab@gmail.com" style="color: #0073e6; font-weight: bold;">languagecoglab@gmail.com</a>으로 문의해 주시길 바랍니다.</p>
             <p><strong> 연구에 참여하기 위해 만 18세 이상이어야 합니다.</strong> 본 설문조사에 참여하는 것은
 자발적이며 언제든지 자유롭게 참여를 철회할 수 있습니다.</p>
@@ -448,9 +449,12 @@ const generatePracticeSolidityTrial = (prompt, correctAnswer, feedbackCorrect, f
                         prompt: `<div style="font-size: 20px; text-align: center; max-width: 700px; margin: auto; font-weight: normal; display: inline-block;">${prompt}</div>`,
                         options: ['고형물', '비고형물', '해당 사항 없음'],
                         required: true,
+                        button_label: "다음",
                     }
                 ],
                 data: { correct_answer: correctAnswer, theword: theword, theblock: "practice_solidity" },
+                button_label: "다음",
+                button_html: '<button class="jspsych-btn" style="font-size: 18px; padding: 10px 20px; margin-top: 10px;">%choice%</button>'
             },
             {
                 type: jsPsychHtmlButtonResponse,
@@ -502,14 +506,16 @@ const block_solidity = {
                         let word = jsPsych.timelineVariable('uni_lemma');
                         word = word.replace(/[*\n\r\t\u200b]/g, '').trim();
                         return `<div style="font-size: 22px; text-align: center; max-width: 700px; margin: auto; font-weight: normal; display: inline-block;">
-                                    <b>${word}</b>는:
+                                    <b>${word}</b>은/는:
                                 </div>`;
                     },
                     options: ['고형물', '비고형물', '해당 사항 없음'],
                     required: true,
-                    required_message: ""
-                }
+                    required_message: "",
+                },
             ],
+            button_label: "다음",
+            button_html: '<button class="jspsych-btn" style="font-size: 18px; padding: 10px 20px; margin-top: 10px;">%choice%</button>',
             on_finish: function (data) {
                 var currentWord = jsPsych.timelineVariable('uni_lemma');
                 jsPsych.data.addDataToLastTrial({
@@ -540,7 +546,7 @@ const solidity = {
     ],
     randomization: false
 };
-timeline.push(solidity);
+//timeline.push(solidity);
 
 // -------------------------------------------------------------------------------------------
 // Instructions for countability task
@@ -574,18 +580,29 @@ const instructions_countmass2 = {
         button_html: '<button class="jspsych-btn" style="font-size: 20px; padding: 12px 24px; margin: 10px;">%choice%</button>'
     }]
 };
-
 const instructions_countmass3 = {
     timeline: [{
         type: jsPsychHtmlButtonResponse,
         stimulus: `
             <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.6;">
-                <p><b>중요:</b> ⚠️ <b style="color: grey;">"회색"</b>이라는 단어가 나오면 항상 <u><b>"가산명사"</b></u>를 선택하세요.</p>
+                <p><b>중요:</b> ⚠️ <b style="color: grey;">"회색"</b>이라는 단어가 나오면, <u><b>"셀 수 있다"</b></u>를 선택해주세요.</p>
             </div>`,
         choices: ["시작!"],
         button_html: '<button class="jspsych-btn" style="font-size: 18px; padding: 12px 24px; margin: 10px;">%choice%</button>'
     }]
 };
+
+// const instructions_countmass3 = {
+//     timeline: [{
+//         type: jsPsychHtmlButtonResponse,
+//         stimulus: `
+//             <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.6;">
+//                 <p><b>중요:</b> ⚠️ <b style="color: grey;">"회색"</b>이라는 단어가 나오면 항상 <u><b>"가산명사"</b></u>를 선택하세요.</p>
+//             </div>`,
+//         choices: ["시작!"],
+//         button_html: '<button class="jspsych-btn" style="font-size: 18px; padding: 12px 24px; margin: 10px;">%choice%</button>'
+//     }]
+// };
 
 // Generate practice trials with feedback
 const generatePracticeCountMassTrial = (prompt, correctAnswer, feedbackCorrect, feedbackIncorrect, theword) => {
@@ -598,9 +615,12 @@ const generatePracticeCountMassTrial = (prompt, correctAnswer, feedbackCorrect, 
                         prompt: `<div style="font-size: 20px; text-align: center; max-width: 700px; margin: auto; font-weight: normal; display: inline-block;">${prompt}</div>`,
                         options: ['셀 수 있다', '셀 수 없다', '잘 모르겠다/구분이 어렵다'],
                         required: true,
+                        button_label: "다음",
                     }
                 ],
                 data: { correct_answer: correctAnswer, theword: theword, theblock: "practice_countmass" },
+                button_label: "다음",
+                button_html: '<button class="jspsych-btn" style="font-size: 18px; padding: 10px 20px; margin-top: 10px;">%choice%</button>'
             },
             {
                 type: jsPsychHtmlButtonResponse,
@@ -652,21 +672,25 @@ const block_countmass = {
                         let word = jsPsych.timelineVariable('uni_lemma');
                         word = word.replace(/[*\n\r\t\u200b]/g, '').trim();
                         return `<div style="font-size: 22px; text-align: center; max-width: 700px; margin: auto; font-weight: normal; display: inline-block;">
-                                    <b>${word}</b>는:
+                                    <b>${word}</b>은/는:
                                 </div>`;
                     },
                     options: ['셀 수 있다', '셀 수 없다', '잘 모르겠다/구분이 어렵다'],
                     required: true,
-                    required_message: ""
-                }
+                    required_message: "",
+                },
             ],
+            button_label: "다음",
+            button_html: '<button class="jspsych-btn" style="font-size: 18px; padding: 10px 20px; margin-top: 10px;">%choice%</button>',
             on_finish: function (data) {
                 var currentWord = jsPsych.timelineVariable('uni_lemma');
                 jsPsych.data.addDataToLastTrial({
                     theword: currentWord,
                     theblock: "count_mass",
                 });
-            }
+            },
+            button_label: "다음",
+            button_html: '<button class="jspsych-btn" style="font-size: 18px; padding: 10px 20px; margin-top: 10px;">%choice%</button>'
         }
     ],
     timeline_variables: selectedWords2,
@@ -690,7 +714,7 @@ const countmass = {
     ],
     randomization: false
 };
-timeline.push(countmass);
+//timeline.push(countmass);
 // ------------------------------------------------------------------------------------------
 // category organization block
 const instructions_category1 = {
@@ -755,36 +779,67 @@ const instructions_category3 = {
             type: jsPsychHtmlButtonResponse,
             stimulus: `
             <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.4;">
-                
                 <p style="margin-bottom: 10px;">다음 문장을 읽어주세요:<p>
                 <p><b>"모래를 조금 흘렸어."</b></p>
-                
                 <div style="display: flex; justify-content: center; margin: 10px 0;">
                     <img src="images/sand_pile.jpg" alt="Pile of sand" style="width: 130px; height: auto; border: 2px solid black; padding: 3px;">
                 </div>
-                
                 <p>모래는 여러 색상과 다양한 형태를 가질 수 있지만,물질은 항상 똑같습니다.</p>
-
                 <div style="display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-top: 15px;">
                     <div style="width: 45%;">
-                        <p>겉모습은 달라도 이것은 모래입니다:</p>
+                        <p>색상이 달라도 이것은 모래입니다:</p>
                         <img src="images/white_pile.jpg" alt="White sand" style="width: 120px; height: auto;">
                     </div>
-
                     <div style="width: 45%;">
-                        <p>겉모습이 비슷해도 이것은 모래가 <b>아닙니다</b>:</p>
+                        <p>형태와 색상이 비슷해도 이것은 모래가 <b>아닙니다</b>:</p>
                         <img src="images/leaves_pile.jpg" alt="Sugar granules" style="width: 150px; height: auto;">
                     </div>
                 </div>
-
                 <p style="margin-top: 20px; font-weight: bold;">⏭️ 다음 단어들을 어떤 기준으로 분류할 수 있는지 판단해주시기 바랍니다.</p>
-            </div>        
+            </div>
             `,
             choices: ['다음'],
             button_html: '<button class="jspsych-btn" style="font-size: 20px; padding: 12px 24px; margin: 10px;">%choice%</button>'
         }
     ]
 };
+
+// const instructions_category3 = {
+//     timeline: [
+//         {
+//             type: jsPsychHtmlButtonResponse,
+//             stimulus: `
+//             <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.4;">
+                
+//                 <p style="margin-bottom: 10px;">다음 문장을 읽어주세요:<p>
+//                 <p><b>"모래를 조금 흘렸어."</b></p>
+                
+//                 <div style="display: flex; justify-content: center; margin: 10px 0;">
+//                     <img src="images/sand_pile.jpg" alt="Pile of sand" style="width: 130px; height: auto; border: 2px solid black; padding: 3px;">
+//                 </div>
+                
+//                 <p>모래는 여러 색상과 다양한 형태를 가질 수 있지만,물질은 항상 똑같습니다.</p>
+
+//                 <div style="display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-top: 15px;">
+//                     <div style="width: 45%;">
+//                         <p>겉모습은 달라도 이것은 모래입니다:</p>
+//                         <img src="images/white_pile.jpg" alt="White sand" style="width: 120px; height: auto;">
+//                     </div>
+
+//                     <div style="width: 45%;">
+//                         <p>겉모습이 비슷해도 이것은 모래가 <b>아닙니다</b>:</p>
+//                         <img src="images/leaves_pile.jpg" alt="Sugar granules" style="width: 150px; height: auto;">
+//                     </div>
+//                 </div>
+
+//                 <p style="margin-top: 20px; font-weight: bold;">⏭️ 다음 단어들을 어떤 기준으로 분류할 수 있는지 판단해주시기 바랍니다.</p>
+//             </div>        
+//             `,
+//             choices: ['다음'],
+//             button_html: '<button class="jspsych-btn" style="font-size: 20px; padding: 12px 24px; margin: 10px;">%choice%</button>'
+//         }
+//     ]
+// };
 
 
 const instructions_category4 = {
@@ -794,7 +849,7 @@ const instructions_category4 = {
             stimulus: `
             <div style="text-align: center; max-width: 700px; margin: auto; font-size: 18px; line-height: 1.6;">
 
-            <p><b>Important:</b> ⚠️ <b style="color: purple; background-color: lavender;">"라벤더"</b>라는 단어가 나오면, <u><b>"해당 사항 없음"</b></u>을 눌러주세요.</p>
+            <p><b>중요:</b> ⚠️ <b style="color: purple; background-color: lavender;">"라벤더"</b>라는 단어가 나오면, <u><b>"해당 사항 없음"</b></u>을 눌러주세요.</p>
 
             </div>`,
             choices: ["시작!"],
@@ -813,11 +868,13 @@ const generatePracticeCategoryTrial = (prompt, correctAnswer, feedbackCorrect, f
                 questions: [
                     {
                         prompt: `<div style="font-size: 20px; text-align: center; max-width: 700px; margin: auto; font-weight: normal; display: inline-block;">${prompt}</div>`,
-                        options: ['형태', '물질', '식상', '해당 사항 없음'],
+                        options: ['형태', '물질', '색상', '해당 사항 없음'],
                         required: true,
                     }
                 ],
                 data: { correct_answer: correctAnswer, theword: theword, theblock: "practice_category" },
+                button_label: "다음",
+                button_html: '<button class="jspsych-btn" style="font-size: 18px; padding: 10px 20px; margin-top: 10px;">%choice%</button>'
             },
             {
                 type: jsPsychHtmlButtonResponse,
@@ -900,7 +957,7 @@ const block_category = {
                         word = word.replace(/[*\n\r\t\u200b]/g, '').trim();
                         console.log(`Word after cleaning: "${word}"`);
                         return `<div style="font-size: 22px; text-align: center; max-width: 700px; margin: auto; font-weight: normal; display: inline-block;">
-                                    <b>${jsPsych.timelineVariable('uni_lemma')}</b> belongs to a category that is organized by:
+                                    <b>${jsPsych.timelineVariable('uni_lemma')}</b> 은/는 어느 기준으로 분류할 수 있다고 생각합니까?
                                 </div>`;
                     },
                     options: ['형태', '색상', '물질', '해당 사항 없음'],
@@ -915,8 +972,10 @@ const block_category = {
                     theword: currentWord,
                     theblock: "category_organization",
                 });
-            }
-        }
+            },
+            button_label: "다음",
+            button_html: '<button class="jspsych-btn" style="font-size: 18px; padding: 10px 20px; margin-top: 10px;">%choice%</button>'
+        },
     ],
     timeline_variables: selectedWords3, // Ensure this is an array of objects like [{ uni_lemma: "word1" }, { uni_lemma: "word2" }]
     randomize_order: true
@@ -944,7 +1003,15 @@ const category = {
     randomization: false
 };
 
-timeline.push(category);
+
+// Full timelinme
+const shuffledTimeline = jsPsych.randomization.shuffle([
+    category,
+    countmass,
+    solidity
+]);
+
+timeline.push(...shuffledTimeline);
 // ---------------------------------------------------------------------------------------------
 
 // goodbye message

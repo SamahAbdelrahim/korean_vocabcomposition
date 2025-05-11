@@ -1,0 +1,20 @@
+{
+  "name": "korean_vocabcomposition",
+  "version": "1.0.0",
+  "description": "An online experiment to collect norming scores from korean native speakers on the first 300 words from the Korean MCDI sourced from wordbank.",
+  "main": "korean_version.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SamahAbdelrahim/korean_vocabcomposition.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SamahAbdelrahim/korean_vocabcomposition/issues"
+  },
+  "homepage": "https://github.com/SamahAbdelrahim/korean_vocabcomposition#readme"
+}

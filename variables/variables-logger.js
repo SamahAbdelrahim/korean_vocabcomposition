@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const varlogschema = new mongoose.Schema( {
+const koreanvarlogschema = new mongoose.Schema( {
     rt: Number,
     trial_type: String,
     trial_index: Number,
@@ -15,8 +15,8 @@ const varlogschema = new mongoose.Schema( {
 }) ;
 
 
-const varlog = mongoose.model('varlog', varlogschema);
-module.exports = varlog ;
+const koreanvarlog = mongoose.model('koreanvarlog', koreanvarlogschema);
+module.exports = koreanvarlog ;
 
     // response: {
     //     Q0: String
